@@ -339,6 +339,17 @@ p_FEPrice_by_SE_iter(iteration,ttot,all_regi,entySe,all_enty) "parameter to save
 p_FEPrice_by_Sector_iter(iteration,ttot,all_regi,all_enty,sector) "parameter to save iteration FE marginal price per sector [tr$2005/TWa]"
 p_FEPrice_by_EmiMkt_iter(iteration,ttot,all_regi,all_enty,emiMkt) "parameter to save iteration FE marginal price per emission market [tr$2005/TWa]"
 p_FEPrice_by_FE_iter(iteration,ttot,all_regi,all_enty) "parameter to save iteration FE marginal price [tr$2005/TWa]"
+
+* These output parameters are used in the MSGM emulator
+* Same as p_FEPrice_by_FE but computed more elegantly
+o_FEPrice(ttot,all_regi,entyFe)    "parameter to save FE marginal price [tr$2005/TWa]"
+o_demFE(ttot,all_regi,entyFe)      "Total FE demand [TWa]"
+o_FEPrice_MSGM(ttot,all_regi,msgm) "MSGM prices (weighted averages of o_FEPrice) [tr$2005/TWa]"
+o_demFE_MSGM(ttot,all_regi,msgm)   "MSGM FE amounts [TWa]"
+o_emiCO2_MSGM(ttot,all_regi,msgm)  "MSGM co2 emission from the energy sector"
+o_emiCO2_nES_MSGM(ttot,all_regi)   "MSGM co2 emission from outside of the energy sector"
+o_inv_energy_supply(ttot,all_regi) "Energy supply investments"
+o_inv_energy_supply_fossil(ttot,all_regi) "Energy supply investments into fossil fuel techs"
 ;
 
 

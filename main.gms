@@ -1990,6 +1990,10 @@ $setGlobal cm_chaCoalBounds off    !! def = off
 *' *  (off): no, only infeasable regions are repeated, standard setting
 *' *  (on):  also non-optimal regions are solved again, up to cm_solver_try_max
 $setglobal cm_repeatNonOpt off      !! def = off  !! regexp = off|on
+*** Switch to artificially vary the labor efficiency in the CES production function, which gets multiplied by the value
+*** of the switch - thus default to 1. This switch is mainly used when setting up runs for the REMIND emulator used in
+*** the multi-sector growth model (MSGM).
+$setGlobal cm_CES_lab_eff_factor  1 !! def = 1
 
 *' @stop
 
