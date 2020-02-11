@@ -20,5 +20,12 @@ p24_Mport2005correct(all_regi,all_enty)     "Correction factor to match fossil s
 positive VARIABLES
 vm_Xport(tall,all_regi,all_enty)            "Export of traded commodity."
 vm_Mport(tall,all_regi,all_enty)            "Import of traded commodity."
+vm_costTradePe(ttot,all_regi)               "Trade costs for trading primary energies"
+;
+***-------------------------------------------------------------------------------
+***                                   EQUATIONS
+***-------------------------------------------------------------------------------
+equation
+q24_costTradePe(ttot,all_regi)
 ;
 *** EOF ./modules/24_trade/standard/declarations.gms

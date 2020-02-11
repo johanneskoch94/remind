@@ -1,0 +1,81 @@
+Concentration|CO2; ppm
++ DAT_CO2_CONC.OUT
+
+Concentration|CH4; ppb
++ DAT_CH4_CONC.OUT
+
+Concentration|N2O; ppb
++ DAT_N2O_CONC.OUT
+
+Forcing; W/m2
++ DAT_TOTAL_ANTHRO_RF.OUT
+
+Forcing|Kyoto Gases; W/m2
++ DAT_KYOTOGHG_RF.OUT
+
+Temperature|Global Mean; K
++ DAT_SURFACE_TEMP.OUT
+
+Forcing|Montreal Gases; W/m2
++ DAT_MHALOSUM_RF.OUT
+
+Forcing|CO2; W/m2
++ DAT_CO2_RF.OUT
+
+Forcing|CH4; W/m2
++ DAT_CH4_RF.OUT
+
+Forcing|N2O; W/m2
++ DAT_N2O_RF.OUT
+
+Forcing|F-Gases; W/m2
++ DAT_FGASSUM_RF.OUT
+
+Forcing|Aerosol; W/m2
++ DAT_TOTAER_DIR_RF.OUT
++ DAT_CLOUD_ALBEDO_RF.OUT
++ DAT_BCSNOW_RF.OUT
+
+Forcing|Aerosol|Sulfate Direct; W/m2
++ DAT_SOXI_RF.OUT
+
+Forcing|Aerosol|Cloud Indirect; W/m2
++ DAT_CLOUD_ALBEDO_RF.OUT
+
+Forcing|Aerosol|BC; W/m2
++ DAT_BCI_RF.OUT
++ DAT_BCSNOW_RF.OUT
+
+Forcing|Aerosol|OC; W/m2
++ DAT_OCI_RF.OUT
+
+Forcing|Aerosol|Nitrate Direct; W/m2
++ DAT_NOXI_RF.OUT
+
+Forcing|Aerosol|Other; W/m2
++ DAT_TOTAER_DIR_RF.OUT
++ DAT_CLOUD_ALBEDO_RF.OUT
+- DAT_SOXI_RF.OUT
+- DAT_BCI_RF.OUT
+- DAT_OCI_RF.OUT
+
+Forcing|Tropospheric Ozone; W/m2
++ DAT_TROPOZ_RF.OUT
+
+Forcing|Other; W/m2
++ DAT_TOTAL_ANTHRO_RF.OUT
+- DAT_KYOTOGHG_RF.OUT
+- DAT_TOTAER_DIR_RF.OUT
+- DAT_CLOUD_ALBEDO_RF.OUT
+- DAT_BCSNOW_RF.OUT
+
+Forcing|Albedo Change and Mineral Dust; W/m2
++ DAT_LANDUSE_RF.OUT 
++ DAT_MINERALDUST_RF.OUT 
+
+Forcing|AN3A; W/m2
++ DAT_TOTAL_ANTHRO_RF.OUT 
+- DAT_LANDUSE_RF.OUT 
+- DAT_MINERALDUST_RF.OUT 
+- DAT_NOXI_RF.OUT 
+

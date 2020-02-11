@@ -37,17 +37,18 @@
   vm_cesIO.up(ttot,regi,"kap")    = 100000000;
 
 *Education level adjustment based on average of secondary education school enrollment and internet users ratio
-p20_coef_H("2005","EUR")    = 0.75;
-p20_coef_H("2005","USA")    = 0.85;
-p20_coef_H("2005","JPN")    = 0.8;
-p20_coef_H("2005","ROW")    = 0.9;
-p20_coef_H("2005","CHN")    = 0.75;
-p20_coef_H("2005","RUS")    = 0.75;
-p20_coef_H("2005","OAS")    = 0.45;
-p20_coef_H("2005","IND")    = 0.4;
-p20_coef_H("2005","AFR")    = 0.4;
-p20_coef_H("2005","LAM")    = 0.45;
-p20_coef_H("2005","MEA")    = 0.45;
+*p20_coef_H("2005","EUR")    = 0.75;
+*p20_coef_H("2005","USA")    = 0.85;
+*p20_coef_H("2005","JPN")    = 0.8;
+*p20_coef_H("2005","ROW")    = 0.9;
+*p20_coef_H("2005","CHN")    = 0.75;
+*p20_coef_H("2005","RUS")    = 0.75;
+*p20_coef_H("2005","OAS")    = 0.45;
+*p20_coef_H("2005","IND")    = 0.4;
+*p20_coef_H("2005","AFR")    = 0.4;
+*p20_coef_H("2005","LAM")    = 0.45;
+*p20_coef_H("2005","MEA")    = 0.45;
+p20_coef_H("2005",regi)    = 0.75;
 
 p20_coef_H(ttot,regi) = ( p20_coef_H("2005",regi) * (2100 - ttot.val) / 95 + 1 * (ttot.val - 2005) / 95 )$(ttot.val < 2100)  + 1$(ttot.val ge 2100) ;
 

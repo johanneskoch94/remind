@@ -6,6 +6,7 @@
 *** |  Contact: remind@pik-potsdam.de
 *** SOF ./core/datainput.gms
 
+
 *AJS* technical. initialize parameters so that they are read from gdx
 vm_co2eq.l(ttot,regi) = 0;
 vm_emiAll.l(ttot,regi,enty) = 0;
@@ -67,6 +68,37 @@ if(cm_prtpScen eq 3, pm_prtp(regi) = 0.03);
 ***                                macro-economy
 *------------------------------------------------------------------------------------
 *------------------------------------------------------------------------------------
+$ifthen %standAlone% == "off" 
+$else
+*** load energy system emulator data
+table jk_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters"  
+$ondelim                
+***######################## R SECTION START (FEMULATOR) ###############################
+$include "./jk_emulators/jk_femulator_type1__base_lab_allT_smooth_posYIntercept_posSlope.cs4r"
+***######################### R SECTION END (FEMULATOR) ################################
+$offdelim
+;
+jk_emu_slope(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"slope");
+jk_emu_yIntercept(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"yIntercept");        
+jk_emu_x(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"x");
+jk_emu_y(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"y");
+jk_emu_x2(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"x2");
+jk_emu_y2(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"y2");
+
+* Emissions emulator 
+table jk_emi_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters" 
+$ondelim                 
+$include "./jk_emulators/jk_femulator_type1__base_lab_allT_smooth_testme_emissions.cs4r"
+$offdelim
+;
+
+jk_emi_emu_slope(t,all_regi,all_in) = jk_emi_femulator(t,all_regi,all_in,"slope");
+jk_emi_emu_yIntercept(t,all_regi,all_in) = jk_emi_femulator(t,all_regi,all_in,"yIntercept");  
+
+
+display jk_emu_slope, jk_emu_yIntercept, jk_emu_x, jk_emu_y, jk_emu_x2, jk_emu_y2;
+$endif
+
 *** load population data
 table f_pop(tall,all_regi,all_POPscen)        "Population data"
 $ondelim

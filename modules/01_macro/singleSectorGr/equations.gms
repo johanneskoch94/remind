@@ -28,26 +28,14 @@ qm_budget(ttot,regi)$( ttot.val ge cm_startyear ) ..
   + sum(in, vm_invRD(ttot,regi,in))
   + sum(in, vm_invInno(ttot,regi,in))
   + sum(in, vm_invImi(ttot,regi,in))
-  + sum(tradePe(enty), pm_costsTradePeFinancial(regi,"Mport",enty) * vm_Mport(ttot,regi,enty))
-  + sum(tradePe(enty),
-      (pm_costsTradePeFinancial(regi,"Xport",enty) * vm_Xport(ttot,regi,enty))
-    * ( 1 
-      + ( pm_costsTradePeFinancial(regi,"XportElasticity",enty)
-        / sqr(pm_ttot_val(ttot)-pm_ttot_val(ttot-1))
-        * ( vm_Xport(ttot,regi,enty) 
-          / ( vm_Xport(ttot-1,regi,enty) + pm_costsTradePeFinancial(regi, "tradeFloor",enty) ) 
-          - 1
-          )
-        )$( ttot.val ge max(2010, cm_startyear) )
-      )
-    )
+  + vm_costTradePe(ttot,regi)   
   + vm_taxrev(ttot,regi)$(ttot.val ge 2010)
   + vm_costAdjNash(ttot,regi)
   + sum(in_enerSerAdj(in), vm_enerSerAdj(ttot,regi,in))
   + sum(teEs, vm_esCapInv(ttot,regi,teEs))
   + vm_costpollution(ttot,regi)
   + pm_totLUcosts(ttot,regi)
-*** agricultural MACs are part of pm_totLUcosts (see module 26_agCosts)
+*agricultural MACs are part of pm_totLUcosts (see module 26_agCosts)
   + sum(enty$(emiMacSector(enty) AND (NOT emiMacMagpie(enty))), pm_macCost(ttot,regi,enty))  
   + vm_costEnergySys(ttot,regi)
 ;

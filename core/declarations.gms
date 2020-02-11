@@ -13,6 +13,22 @@
 ***----------------------------------------------------------------------------------------
 parameters
 
+$ifthen %standAlone% == "off" 
+$else 
+jk_emu_slope(ttot,all_regi,all_in)                   "Slope of supply curve [T$/TWa/TWa]"
+jk_emu_yIntercept(ttot,all_regi,all_in)              "yIntercept of supply curve [T$/TWa]"
+jk_emu_x(ttot,all_regi,all_in)                       "x coordinate of couple point of piece-wise function [TWa]"
+jk_emu_y(ttot,all_regi,all_in)                       "y coordinate of couple point of piece-wise function [T$/TWa]"
+jk_emu_x2(ttot,all_regi,all_in)                      "x coordinate of couple point of piece-wise function [TWa]"
+jk_emu_y2(ttot,all_regi,all_in)                      "y coordinate of couple point of piece-wise function [T$/TWa]"
+jk_pm_cesIO(ttot,all_regi,all_in)                    "keep track of fe consumption over iterations [TWa]" 
+jk_pm_priceEnergy(ttot,all_regi,all_in)              "keep track of fe price over iterations [T$/TWa]" 
+
+*** emission sc
+jk_emi_emu_slope(ttot,all_regi,all_in)               "Slope of supply curve []"
+jk_emi_emu_yIntercept(ttot,all_regi,all_in)          "yIntercept of supply curve []"
+$endif
+
 ***----------------------------------------------------------------------------------------
 ***--------------------------------------------------MACRO module--------------------------
 ***prices
@@ -26,13 +42,13 @@ pm_pricePerm(ttot)                                   "permit price in special ca
 p_share(ttot,all_regi,all_in,all_in)                 "share of production factors"
 pm_share_trans(tall,all_regi)                        "transportation share"
 pm_gdp_gdx(tall,all_regi)                            "GDP path from gdx, updated iteratively."   
-p_inv_gdx(tall,all_regi)                            "macro-investments path from gdx, updated iteratively."
+p_inv_gdx(tall,all_regi)                             "macro-investments path from gdx, updated iteratively."
 pm_taxCO2eq(ttot,all_regi)                           "CO2 tax path in T$/GtC = $/kgC. To get $/tCO2, multiply with 272 [T$/GtC]"
 pm_taxCO2eqHist(ttot,all_regi)                       "Historic CO2 tax path in 2010 and 2015 (also in BAU!) in T$/GtC = $/kgC. To get $/tCO2, multiply with 272 [T$/GtC]"
 pm_taxCO2eq_iteration(iteration,ttot,all_regi)       "save CO2eq tax used in iteration"
 p_taxCO2eq_iterationdiff(ttot,all_regi)              "help parameter for iterative adjustment of taxes"
 p_taxCO2eq_iterationdiff_tmp(ttot,all_regi)          "help parameter for iterative adjustment of taxes"
-o_taxCO2eq_iterDiff_Itr(iteration,all_regi) "track p_taxCO2eq_iterationdiff over iterations"
+o_taxCO2eq_iterDiff_Itr(iteration,all_regi)          "track p_taxCO2eq_iterationdiff over iterations"
 pm_emissionsForeign(tall,all_regi,all_enty)          "total emissions of other regions (nash relevant)"
 pm_co2eqForeign(tall,all_regi)                       "emissions, which are part of the climate policy, of other regions (nash relevant)"
 pm_cesdata(tall,all_regi,all_in,cesParameter)        "parameters of the CES function"
@@ -239,6 +255,8 @@ vm_costSubsidizeLearning(ttot,all_regi)              "regional cost of subsidy f
 vm_dummyBudget(ttot,all_regi)                        "auxiliary variable that helps to meet permit allocation equation in nash case"
 ***----------------------------------------------------------------------------------------
 ***-------------------------------------------------ESM module-----------------------------
+vm_energyCost(ttot,all_regi)                                          "total energy cost"
+
 vm_macBase(ttot,all_regi,all_enty)                   "baseline emissions for all emissions subject to MACCs (type emismac)"
 vm_emiTeDetail(ttot,all_regi,all_enty,all_enty,all_te,all_enty)  "energy-related emissions per region and technology"
 vm_emiTe(ttot,all_regi,all_enty)                     "total energy-related emissions of each region. [GtC, Mt CH4, Mt N]"

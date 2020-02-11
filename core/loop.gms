@@ -5,7 +5,7 @@
 *** |  REMIND License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: remind@pik-potsdam.de
 *** SOF ./core/loop.gms
-
+scalar helper /0/ ;
 *--------------------------------------------------------------------------
 ***         solveoptions
 *--------------------------------------------------------------------------
@@ -65,10 +65,11 @@ $batinclude "./modules/include.gms" presolve
 
 *AJS* In case of fixing, fix to prices from input_ref.gdx (t < cm_startyear). 
 *** Parameters are not automatically treated by the fixing mechanism above.
-if( (cm_startyear gt 2005),
+$IF %standAlone% == "macro" helper = 1;
+if( (cm_startyear gt 2005 or helper = 1),
     Execute_Loadpoint 'input_ref' p_pvpRef = pm_pvp;
     pm_pvp(ttot,trade)$( (ttot.val ge 2005) and (ttot.val lt cm_startyear)) = p_pvpRef(ttot,trade);
-);    
+);     
 
 ***--------------------------------------------------------------------------
 ***         SOLVE 

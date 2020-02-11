@@ -16,7 +16,7 @@ display pm_cesdata;
 
    vm_effGr.fx(t,regi,noRD(in)) = pm_cesdata(t,regi,in,"effgr");
 
-   vm_effGr.fx(t,regi,"feelt") = 1;
+*   vm_effGr.fx(t,regi,"feelt") = 1;
    vm_effGR.lo(t,regi,inRD20(in)) = 1;    
    vm_invRD.fx(t,regi,in) = 0; 
 

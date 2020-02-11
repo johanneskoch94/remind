@@ -515,15 +515,23 @@ content <- c(content,'','       modules "all the available modules"')
 content <- c(content,'       /',paste0("       ",gms::getModules("modules/")[,"name"]),'       /')
 content <- c(content,'','module2realisation(modules,*) "mapping of modules and active realisations" /')
 content <- c(content,paste0("       ",gms::getModules("modules/")[,"name"]," . %",gms::getModules("modules/")[,"name"],"%"))
-content <- c(content,'      /',';')
-gms::replace_in_file('core/sets.gms',content,"MODULES",comment="***")
-### ADD MODULE INFO IN SETS  ############# END #########
-    
+content <- c(content,'       /',paste0("       ",gms::getModules("modules/")[,"name"]),'       /')
+content <- c(content,'','module2realisation(modules,*) "mapping of modules and active realisations" /')
+content <- c(content,paste0("       ",gms::getModules("modules/")[,"name"]," . %",gms::getModules("modules/")[,"name"],"%"))
 # Choose which conopt files to copy
 cfg$files2export$start <- sub("conopt3",cfg$gms$cm_conoptv,cfg$files2export$start)
 
 # Copy important files into output_folder (before REMIND execution)
 .copy.fromlist(cfg$files2export$start,cfg$results_folder)
+
+# JK SET EMULATOR FILE PATH
+if(cfg$model == "standalone/macro/main.gms"){
+  replace_in_file(file = 'standalone/macro/datainput.gms',
+                  content = paste0("$include \"./jk_emulators/",cfg$emulator_file,"\""),
+                  subject = "FEMULATOR",
+                  comment="***")
+}
+
 
 # Save configuration
 save(cfg, file = path(cfg$results_folder, "config.Rdata"))

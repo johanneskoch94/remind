@@ -17,6 +17,11 @@ configure_cfg <- function(icfg, iscen, iscenarios, isettings, iref_bau_pathways 
       icfg$model <- iscenarios[iscen,"model"]
     }
 
+    # Edit emulator file for macro stand-alone
+    if( "emulator_file" %in% names(iscenarios)){
+      icfg$emulator_file <- iscenarios[iscen,"emulator_file"]
+    }
+
     # Edit regional aggregation
     if( "regionmapping" %in% names(iscenarios)){
       icfg$regionmapping <- iscenarios[iscen,"regionmapping"]

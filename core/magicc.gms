@@ -33,6 +33,7 @@ sum(regi,
   * p_regi_2_MAGICC_regions(regi,RCP_regions_world)
 );
 
+$ontext
 p_MAGICC_emi(ttot,RCP_regions_world,"OtherCO2")$(ttot.val ge 2005)
 =
 sum(regi,
@@ -87,7 +88,7 @@ loop(emiRCP2emiREMIND(emiRCP,enty3),
 		* (1 - (1 - s_NO2_2_N)$( sameas(enty3,"NOx")))
     ;
 );
-
+$offtext
 *** interpolate first periods
 loop(emiRCP,
   loop(RCP_regions_world,

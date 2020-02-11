@@ -44,8 +44,8 @@ loop(ttot$(ttot.val ge 2005),
              );
         p80_normalize0(ttot,regi,"good")   = vm_cons.l(ttot,regi);
 ***        p80_normalize0(ttot,regi,"perm") = vm_cons.l(ttot,regi);  
-                    p80_normalize0(ttot,regi,"perm")$(ttot.val ge 2005) = max(abs(pm_shPerm(ttot,regi) * pm_emicapglob(ttot)) , 1E-6);
-        p80_normalize0(ttot,regi,tradePe) = 0.5 * (sum(rlf, vm_fuExtr.l(ttot,regi,tradePe,rlf)) + vm_prodPe.l(ttot,regi,tradePe));
+***        p80_normalize0(ttot,regi,"perm")$(ttot.val ge 2005) = max(abs(pm_shPerm(ttot,regi) * pm_emicapglob(ttot)) , 1E-6);
+***        p80_normalize0(ttot,regi,tradePe) = 0.5 * (sum(rlf, vm_fuExtr.l(ttot,regi,tradePe,rlf)) + vm_prodPe.l(ttot,regi,tradePe));
 
 p80_taxrev0(ttot,regi) = vm_taxrev.l(ttot,regi);
 
@@ -142,14 +142,14 @@ loop(tradePe,
 ***debug display
 display pm_pvp,p80_normalize0;
 display pm_Xport0,p80_Mport0;
-display p80_surplusMaxTolerance;
+***display p80_surplusMaxTolerance;
 
 *EMIOPT
 $ifthen.emiopt %emicapregi% == 'none' 
-if(cm_emiscen eq 6,
-pm_budgetCO2eq(regi) = pm_shPerm("2050",regi) * sm_budgetCO2eqGlob;
-display pm_shPerm, sm_budgetCO2eqGlob, pm_budgetCO2eq;
-);
+***if(cm_emiscen eq 6,
+***pm_budgetCO2eq(regi) = pm_shPerm("2050",regi) * sm_budgetCO2eqGlob;
+***display pm_shPerm, sm_budgetCO2eqGlob, pm_budgetCO2eq;
+***);
 $endif.emiopt
 
 *** EOF ./modules/80_optimization/nash/preloop.gms

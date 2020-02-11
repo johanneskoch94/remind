@@ -139,7 +139,11 @@ option profile = 0;
 
 
 ***---------------------    Run name    -----------------------------------------
-$setGlobal c_expname  Calibration_middle
+$setGlobal c_expname  test
+***---------------------    Stand alone    --------------------------------------
+$setGlobal standAlone  macro
+***---------------------    Energy System Emulator    ---------------------------
+$setGlobal emulator_energySys  on_1
 
 ***------------------------------------------------------------------------------
 ***                           MODULES
@@ -162,7 +166,7 @@ $setGlobal downscaleTemperature  off  !! def = off
 ***---------------------    20_growth    ----------------------------------------
 $setGlobal growth  exogenous          !! def = exogenous
 ***---------------------    21_tax    -------------------------------------------
-$setGlobal tax  on                    !! def = on
+$setGlobal tax  off                    !! def = on
 ***---------------------    22_subsidizeLearning    -----------------------------
 $setGlobal subsidizeLearning  off     !! def = off
 ***---------------------    23_capitalMarket    -----------------------------
@@ -208,7 +212,7 @@ $setGlobal internalizeDamages  off               !! def = off
 ***---------------------    70_water  -------------------------------------------
 $setglobal water  off                 !! def = off
 ***---------------------    80_optimization    ----------------------------------
-$setGlobal optimization  nash         !! def = nash
+$setGlobal optimization  testOneRegi         !! def = nash
 ***---------------------    81_codePerformance    -------------------------------
 $setGlobal codePerformance  off       !! def = off
 

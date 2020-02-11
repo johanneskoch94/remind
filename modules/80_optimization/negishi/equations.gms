@@ -10,7 +10,6 @@
 q80_balTrade(t,trade(enty))..
     SUM(regi,  vm_Xport(t,regi,trade) - vm_Mport(t,regi,trade)) =e= 0;
 
-
 *AJS initialize helper eqn. any way to get around this?
 q80_budget_helper(t,regi)..
     1

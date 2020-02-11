@@ -61,6 +61,7 @@ if( ((iteration.val le 10) or ( mod(iteration.val,5 ) eq 0)) ,
 *NOTE the MAGICC results (*.OUT files) are from  the last pulse experiment now, so take care if reading them in after this point.
 $endif.cm_magicc_tirf
 
+$ontext
 ***---------------------------------------------------------------------------
 *' Iterative adjustment of budgets or carbon taxes to meet forcing target 
 ***---------------------------------------------------------------------------
@@ -139,5 +140,8 @@ if (cm_iterative_target_adj eq 2, !! otherwise adjustment happens in core/postso
     display pm_taxCO2eq;
     );
 );
+
+$offtext
+
 *' @stop
 *** EOF ./modules/15_climate/magicc/postsolve.gms

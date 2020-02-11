@@ -516,6 +516,9 @@ q_emiTeDetail(t,regi,enty,enty2,te,enty3)$(   emi2te(enty,enty2,te,enty3)
 q_emiTe(t,regi,emiTe(enty)) .. 
   vm_emiTe(t,regi,enty)
   =e=
+$ifthen.standAlone %standAlone% == "macro" 
+    sum(ppfEn, jk_emi_emu_slope(t,regi,ppfEn) * vm_cesIO(t,regi,ppfEn) + jk_emi_emu_yIntercept(t,regi,ppfEn))
+$else.standAlone 
     !! emissions from fuel combustion
     sum(emi2te(enty2,enty3,te,enty),     
       vm_emiTeDetail(t,regi,enty2,enty3,te,enty)
@@ -536,12 +539,14 @@ q_emiTe(t,regi,emiTe(enty)) ..
       vm_emiIndCCS(t,regi,emiInd37_fuel)
     )$( sameas(enty,"co2") )
     !! Valve from cco2 capture step, to mangage if capture capacity and CCU/CCS 
-    !! capacity don't have the same lifetime
+    !! capacity dont have the same lifetime
   + v_co2capturevalve(t,regi)$( sameas(enty,"co2") )
     !! CO2 from short-term CCU
   + sum(teCCU2rlf(te2,rlf), 
       vm_co2CCUshort(t,regi,"cco2","ccuco2short",te2,rlf)
     )
+$endif.standAlone
+
 ;
 
 ***------------------------------------------------------
@@ -768,12 +773,55 @@ q_smoothphaseoutCapEarlyReti(ttot,regi,te)$(ttot.val lt 2120 AND pm_ttot_val(tto
 q_costEnergySys(ttot,regi)$( ttot.val ge cm_startyear ) ..
     vm_costEnergySys(ttot,regi)
   =e=
-    ( v_costFu(ttot,regi) 
-    + v_costOM(ttot,regi) 
-    + v_costInv(ttot,regi)
+$ifthen.standalone  %standalone% == "macro"
+$ifthen.emulator %emulator_energySys% == "on_1" 
+    sum(ppfEn, jk_emu_yIntercept(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) 
+             + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)**2 / 2.0)
+$elseif.emulator %emulator_energySys% == "on_1b" 
+    sum(ppfEn, (jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+                * vm_cesIO(ttot,regi,ppfEn))
+* $ifthen.emulator %emulator_energySys% == "on_1" 
+*     sum(ppfEn, (jk_emu_slope(ttot,regi,ppfEn)*vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
+$elseif.emulator %emulator_energySys% == "on_2" 
+    sum(ppfEn, 
+    (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) 
+    * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) gt jk_emu_x(ttot,regi,ppfEn))
+    + 
+    (( -1 * jk_emu_yIntercept(ttot,regi,ppfEn)/jk_emu_x(ttot,regi,ppfEn)**2 * vm_cesIO(ttot,regi,ppfEn)**2 
+      + (jk_emu_slope(ttot,regi,ppfEn) + 2 * jk_emu_yIntercept(ttot,regi,ppfEn) / jk_emu_x(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn)) 
+    * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) le jk_emu_x(ttot,regi,ppfEn))
     ) 
+$elseif.emulator %emulator_energySys% == "on_3"
+    sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)
+             + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)**2 / 2.0)
+             $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
+             +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+             $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))
+$elseif.emulator %emulator_energySys% == "on_3b"
+    sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+                * vm_cesIO(ttot,regi,ppfEn)
+             $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
+             +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+             $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))  
+$elseif.emulator %emulator_energySys% == "on_4"
+    sum(ppfEn, 
+     (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
+      $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn) AND jk_pm_priceEnergy(ttot,regi,ppfEn) lt jk_emu_y2(ttot,regi,ppfEn))
+     + 
+     (jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+      $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn))
+     + 
+     (jk_emu_y2(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+      $(jk_pm_priceEnergy(ttot,regi,ppfEn) ge jk_emu_y2(ttot,regi,ppfEn))
+    ) 
+$endif.emulator
+$else.standalone 
+    v_costFu(ttot,regi) 
+  + v_costOM(ttot,regi) 
+  + v_costInv(ttot,regi) 
   + sum(emiInd37, vm_IndCCSCost(ttot,regi,emiInd37))
   + pm_CementDemandReductionCost(ttot,regi)
+$endif.standalone
 ;
 
 

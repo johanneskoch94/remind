@@ -409,7 +409,7 @@ if(s80_bool eq 1,
 ***--------------------------
 ***  EMIOPT implementation
 ***--------------------------
-$ifthen.emiopt %emicapregi% == 'none' 
+$ifthen.emiopt %emicapregi% == 'none1' 
 if(cm_emiscen eq 6,
 
 *mlb 20150609* nash emiopt algorithm

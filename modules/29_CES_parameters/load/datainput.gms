@@ -11,6 +11,10 @@
 $include "./modules/29_CES_parameters/load/input/stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_debt_limit-Reg_690d3718e1.inc"
 *###################### R SECTION END (CES INPUT) ###########################
 
+$ifthen "%human_capital%" == "on"
+$include "./modules/29_CES_parameters/load/input/stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_perfect-Reg_690d3718e1_jokoch_human_capital.inc"
+$endif
+
 if (cm_GDPcovid eq 1,
    pm_cesdata("2020",all_regi,"lab","effgr") = 0.5 * (pm_cesdata ("2015",all_regi,"lab","effgr") + pm_cesdata ("2020",all_regi,"lab","effgr"));
 );
