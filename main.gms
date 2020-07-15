@@ -84,7 +84,7 @@
 * 
 * Input data revision: 5.944
 * 
-* Last modification (input data): Wed Jun 17 14:10:58 2020
+* Last modification (input data): Tue Jul 14 10:20:58 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -130,7 +130,7 @@ option profile = 0;
 
 
 ***---------------------    Run name    -----------------------------------------
-$setGlobal c_expname  default
+$setGlobal c_expname  calibration_neg003
 
 ***------------------------------------------------------------------------------
 ***                           MODULES
@@ -163,7 +163,7 @@ $setGlobal trade  standard     !! def = standard
 ***---------------------    26_agCosts ------------------------------------------
 $setGlobal agCosts  costs               !! def = costs
 ***---------------------    29_CES_parameters    --------------------------------
-$setglobal CES_parameters  load       !! def = load
+$setglobal CES_parameters  calibrate       !! def = load
 ***---------------------    30_biomass    ---------------------------------------
 $setGlobal biomass  magpie_40 !! def = magpie_40
 ***---------------------    31_fossil    ----------------------------------------
@@ -339,7 +339,7 @@ $setglobal c_GDPpcScen  SSP2     !! def = gdp_SSP2   (automatically adjusted by 
 cm_startyear      = 2005;      !! def = 2005 for a BAU, 2015 for policy runs
 c_start_budget    = 2100;      !! def = 2100
 
-cm_prtpScen         = 3;         !! def = 3
+cm_prtpScen         = 11;         !! def = 3
 cm_fetaxscen        = 3;         !! def = 3
 cm_multigasscen     = 2;         !! def = 2
 cm_permittradescen  = 1;         !! def = 1
@@ -427,7 +427,7 @@ $setGlobal cm_magicc_temperatureImpulseResponse  off           !! def = off
 
 $setGlobal cm_damage_DiceLike_specification  HowardNonCatastrophic   !! def = HowardNonCatastrophic
 
-$setglobal cm_CES_configuration  stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_debt_limit-Reg_690d3718e1   !! this will be changed by start_run()
+$setglobal cm_CES_configuration  prtp_11-stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_debt_limit-Reg_690d3718e1   !! this will be changed by start_run()
 
 $setglobal c_CES_calibration_new_structure  0    !! def =  0
 $setglobal c_CES_calibration_iterations  10    !! def = 10

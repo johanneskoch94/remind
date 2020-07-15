@@ -438,7 +438,8 @@ if(cfg$gms$transport == "edge_esm"){
 }
 
 # Calculate CES configuration string
-cfg$gms$cm_CES_configuration <- paste0("stat_",cfg$gms$stationary,"-",
+cfg$gms$cm_CES_configuration <- paste0("prtp_",cfg$gms$cm_prtpScen,"-",
+                                       "stat_",cfg$gms$stationary,"-",
                                        "indu_",cfg$gms$industry,"-",
                                        "buil_",cfg$gms$buildings,"-",
                                        "tran_",cfg$gms$transport,"-",
