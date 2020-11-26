@@ -233,6 +233,10 @@ p_teAnnuity(all_te)                                  "Annuity factor of a techno
 
 p_histEmiMac(tall,all_regi,all_enty)                 "historical emissions per MAC; from Eurostat and CEDS, to correct CH4 and N2O reporting"
 p_histEmiSector(tall,all_regi,all_enty,emi_sectors,sector_types) "historical emissions per sector; from Eurostat and CEDS, to correct CH4 and N2O reporting"
+
+*** From industry
+pm_ue_eff_target(all_in)   "energy efficiency target trajectories [% p.a.]"     /   /
+pm_calibrate_eff_scale(all_in,all_in,eff_scale_par)   "parameters for scaling efficiencies in CES calibration" /   /
 ;
 
 ***----------------------------------------------------------------------------------------

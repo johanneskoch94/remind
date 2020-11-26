@@ -6,12 +6,6 @@
 *** |  Contact: remind@pik-potsdam.de
 *** SOF ./core/presolve.gms
 
-$ifthen %standAlone% == "off" 
-$else
-jk_pm_cesIO(ttot,regi,ppfEn) = vm_cesIO.l(ttot,regi,ppfEn);
-jk_pm_priceEnergy(ttot,regi,ppfEn) = jk_emu_slope(ttot,regi,ppfEn)*vm_cesIO.l(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn);
-$endif
-
 *JeS* calculate share of transport fuels in liquids
 pm_share_trans(ttot,regi)$(ttot.val ge 2005) = sum(se2fe(entySe,entyFe,te)$(seAgg2se("all_seliq",entySe) AND ( sameas(entyFe,"fepet") OR sameas(entyFe,"fedie"))), vm_prodFe.l(ttot,regi,entySe,entyFe,te)) / (sum(se2fe(entySe,entyFe,te)$seAgg2se("all_seliq",entySe), vm_prodFe.l(ttot,regi,entySe,entyFe,te)) + 0.0000001);
 

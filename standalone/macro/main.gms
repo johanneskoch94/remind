@@ -17,6 +17,15 @@
 
 $title model_title
 
+
+file logfile /""/;
+
+logfile.lw = 0;
+logfile.nr = 2;
+logfile.nd = 3;
+logfile.nw = 0;
+logfile.nz = 0;
+
 *--------------------------------------------------------------------------
 *** preliminaries:
 *--------------------------------------------------------------------------
@@ -37,7 +46,7 @@ $offdigit
 ***---------------------    Run name    -----------------------------------------
 $setGlobal c_expname  test
 ***---------------------    Use Human Capital    --------------------------------
-$setGlobal human_capital off
+$setGlobal human_capital on
 ***---------------------    Energy System Emulator    ---------------------------
 $setGlobal emulator_energySys  on_1
 
@@ -66,13 +75,13 @@ $setGlobal tax  off                    !! def = on
 ***---------------------    22_subsidizeLearning    -----------------------------
 $setGlobal subsidizeLearning  off     !! def = off
 ***---------------------    23_capitalMarket    ---------------------------------
-$setGlobal capitalMarket  perfect     !! def = perfect
+$setGlobal capitalMarket  debt_limit     !! def = perfect
 ***---------------------    24_trade    -----------------------------------------
 $setGlobal trade  standard     !! def = standard
 ***---------------------    26_agCosts ------------------------------------------
 $setGlobal agCosts  costs               !! def = costs
 ***---------------------    29_CES_parameters    --------------------------------
-$setglobal CES_parameters  load       !! def = load
+$setglobal CES_parameters  calibrate       !! def = load
 ***---------------------    30_biomass    ---------------------------------------
 $setGlobal biomass  magpie_40 !! def = magpie_40
 ***---------------------    31_fossil    ----------------------------------------
@@ -197,6 +206,9 @@ option cns = %cm_conoptv%;
 *--------------------------------------------------------------------------
 ***           SETS
 *--------------------------------------------------------------------------
+sets
+emu_pm "emulator parameters" /slope, yIntercept ,x ,y, x2, y2 /
+;
 $include    "./core/sets.gms";
 $batinclude "./standalone/macro/include_sets.gms"    sets
 $include    "./standalone/macro/set_calculations.gms";

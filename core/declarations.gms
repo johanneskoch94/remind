@@ -12,23 +12,6 @@
 ***                                   PARAMETERS
 ***----------------------------------------------------------------------------------------
 parameters
-
-$ifthen %standAlone% == "off" 
-$else 
-jk_emu_slope(ttot,all_regi,all_in)                   "Slope of supply curve [T$/TWa/TWa]"
-jk_emu_yIntercept(ttot,all_regi,all_in)              "yIntercept of supply curve [T$/TWa]"
-jk_emu_x(ttot,all_regi,all_in)                       "x coordinate of couple point of piece-wise function [TWa]"
-jk_emu_y(ttot,all_regi,all_in)                       "y coordinate of couple point of piece-wise function [T$/TWa]"
-jk_emu_x2(ttot,all_regi,all_in)                      "x coordinate of couple point of piece-wise function [TWa]"
-jk_emu_y2(ttot,all_regi,all_in)                      "y coordinate of couple point of piece-wise function [T$/TWa]"
-jk_pm_cesIO(ttot,all_regi,all_in)                    "keep track of fe consumption over iterations [TWa]" 
-jk_pm_priceEnergy(ttot,all_regi,all_in)              "keep track of fe price over iterations [T$/TWa]" 
-
-*** emission sc
-jk_emi_emu_slope(ttot,all_regi,all_in)               "Slope of supply curve []"
-jk_emi_emu_yIntercept(ttot,all_regi,all_in)          "yIntercept of supply curve []"
-$endif
-
 ***----------------------------------------------------------------------------------------
 ***--------------------------------------------------MACRO module--------------------------
 ***prices

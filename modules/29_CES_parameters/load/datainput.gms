@@ -12,7 +12,7 @@ $ifthen "%human_capital%" == "off"
 $include "./modules/29_CES_parameters/load/input/stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_debt_limit-Reg_690d3718e1.inc"
 *###################### R SECTION END (CES INPUT) ###########################
 $else
-$include "./modules/29_CES_parameters/load/input/stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_perfect-Reg_690d3718e1_jokoch_human_capital.inc"
+$include "./standalone/macro/input/stat_off-indu_fixed_shares-buil_simple-tran_complex-POP_pop_SSP2-GDP_gdp_SSP2-Kap_perfect-Reg_690d3718e1_jokoch_human_capital.inc"
 $endif
 
 if (cm_GDPcovid eq 1,

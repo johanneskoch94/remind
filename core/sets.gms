@@ -5,22 +5,6 @@
 *** |  REMIND License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: remind@pik-potsdam.de
 *** SOF ./core/sets.gms
-
-$ifthen %standAlone% == "off" 
-$else
-sets
-emu_pm "emulator parameters"
-/
-slope
-yIntercept
-x
-y
-x2
-y2
-/
-;
-$endif
-
 ***-----------------------------------------------------------------------------
 ***-----------------------------------------------------------------------------
 ***            Definition of all super-sets "all_*"

@@ -527,7 +527,7 @@ cfg$files2export$start <- sub("conopt3",cfg$gms$cm_conoptv,cfg$files2export$star
 # JK SET EMULATOR FILE PATH
 if(cfg$model == "standalone/macro/main.gms"){
   replace_in_file(file = 'standalone/macro/datainput.gms',
-                  content = paste0("$include \"./jk_emulators/",cfg$emulator_file,"\""),
+                  content = paste0("$include \"./standalone/macro/input/",cfg$emulator_file,"\""),
                   subject = "FEMULATOR",
                   comment="***")
 }

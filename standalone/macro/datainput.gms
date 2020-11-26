@@ -45,7 +45,7 @@ if(cm_prtpScen eq 3, pm_prtp(regi) = 0.03);
 table jk_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters"  
 $ondelim                
 ***######################## R SECTION START (FEMULATOR) ###############################
-$include "./jk_emulators/jk_femulator_type1__base_lab_allT_smooth_posYIntercept_posSlope.cs4r"
+$include "./standalone/macro/input/jk_femulator_type1__base_lab_allT_smooth_posYIntercept_posSlope.cs4r"
 ***######################### R SECTION END (FEMULATOR) ################################
 $offdelim
 ;
@@ -59,7 +59,7 @@ jk_emu_y2(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"y2");
 * Emissions emulator 
 table jk_emi_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters" 
 $ondelim                 
-$include "./jk_emulators/jk_femulator_type1__base_lab_allT_smooth_testme_emissions.cs4r"
+$include "./standalone/macro/input/jk_femulator_type1__base_lab_allT_smooth_testme_emissions.cs4r"
 $offdelim
 ;
 
@@ -126,13 +126,40 @@ pm_pricePerm(ttot) = 0;
 $ifthen.human_capital %human_capital% == "on"
 table f_edu(all_regi,tall,all_POPscen)        "Labour data"
 $ondelim
-$include "./remind_input_LAYS.csv"
+$include "./standalone/macro/input/remind_input_LAYS.csv"
 $offdelim
 ;
 pm_education(ttot,all_regi) = f_edu(all_regi,ttot,"%cm_POPscen%");
 pm_lab(ttot,all_regi) = pm_lab(ttot,all_regi) * pm_education(ttot,all_regi);
 display pm_lab;
 $endif.human_capital
+
+
+*** ---- FE demand trajectories for calibration -------------------------------
+*** also used for limiting secondary steel demand in baseline and policy 
+*** scenarios
+parameter
+pm_fedemand(tall,all_regi,all_GDPscen,all_in)    "final energy demand"
+/
+$ondelim
+$include "./core/input/pm_fe_demand.cs4r"
+$offdelim
+/
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

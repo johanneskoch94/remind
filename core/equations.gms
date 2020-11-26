@@ -516,9 +516,6 @@ q_emiTeDetail(t,regi,enty,enty2,te,enty3)$(   emi2te(enty,enty2,te,enty3)
 q_emiTe(t,regi,emiTe(enty)) .. 
   vm_emiTe(t,regi,enty)
   =e=
-$ifthen.standAlone %standAlone% == "macro" 
-    sum(ppfEn, jk_emi_emu_slope(t,regi,ppfEn) * vm_cesIO(t,regi,ppfEn) + jk_emi_emu_yIntercept(t,regi,ppfEn))
-$else.standAlone 
     !! emissions from fuel combustion
     sum(emi2te(enty2,enty3,te,enty),     
       vm_emiTeDetail(t,regi,enty2,enty3,te,enty)
@@ -545,8 +542,6 @@ $else.standAlone
   + sum(teCCU2rlf(te2,rlf), 
       vm_co2CCUshort(t,regi,"cco2","ccuco2short",te2,rlf)
     )
-$endif.standAlone
-
 ;
 
 ***------------------------------------------------------

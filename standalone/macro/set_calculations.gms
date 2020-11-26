@@ -13,8 +13,17 @@ Scalar
 regi(all_regi) = YES;
 display regi;
 
-entyFe(enty) = entyFeStat(enty) + entyFeTrans(enty);
+* OVERWRITE trade sets: only macro good is traded
+$onMultiR
+sets
+tradeMacro(all_enty)        "Traded macro-economic commodities"     / good /
+tradePe(all_enty)           "Traded primary energy commodities"     / null /
+;
+$offMulti
 trade(enty)  = tradeMacro(enty);
+
+
+entyFe(enty) = entyFeStat(enty) + entyFeTrans(enty);
 
 *** calculate primary production factors (ppf)
 ppf(all_in) = ppfEn(all_in) + ppfKap(all_in);

@@ -12,83 +12,8 @@
 ***------------------------------------------------------------------------------
 ***------------------------------------------------------------------------------
 *** definition of model hybrid 
-$ifthen.modelDefinition %standAlone% == "macro"
-  model hybrid / 
-*** welfare equations 
-  q02_welfareGlob,
-  q02_welfare,
-*  q02_inconvPen,
-*  q02_inconvPenCoalSolids,
-*** optimiaztion equations  
-$ifthen.optimization %optimization% == "negishi"
-  q80_balTrade,
-  q80_budget_helper,
-$else.optimization 
-  q80_budg_intertemp,
-  q80_costAdjNash,
-$endif.optimization
-*** macro eqautions
-  qm_budget, 
-  q01_balLab,
-  q01_cesIO,
-  q01_prodCompl,
-  q01_kapMo,
-  q01_kapMo0,
-  q01_limitShPpfen,
-  q01_limtRatioPpfen,
-  q01_invMacroAdj,
-*** esm cost 
-  q_costEnergySys,
-*** emissions
-  q_emiTe,
-
-
-
-* *** FE Pathway I equations 
-*   qm_balFeForCesAndEs,
-
-* *** FE Pathway II equations  
-*   q_balFe,
-*   q_transFe2Ue,
-*   q_limitCapUe,
-*   q35_shUePeT,
-*   q35_shUePeTbal,
-*   q_esm2macro,
-  
-* *** FE Pathway III equations 
-*   q_transFe2Es,
-*   q_es2ppfen,
-*   q_shFeCes,
-*   q_esCapInv,
-
-*  q21_taxrev,
-*  q21_taxrevXport,
-*  q21_taxrevFEBuildInd,
-*  q21_taxrevFE_Es,
-***  q21_taxrevFEtrans,
-
-*** Constraint on solid ces input and es demand  
-**  q_limitBiotrmod,
-
-*** Constraint for Xport and Mport
-*  qm_fuel2pe,
-**  q30_limitXpBio,
-
-*** Constraint for emission permit Xport and Mport
-*  q_emiCap,
-
-*** UNECESSARY Constraint on vm_cesIO
-**  q37_macBaseInd,
-
-*** Constraint on vm_otherFEdemand
-*  q33_capconst_dac,
-*  q33_otherFEdemand,
-
-  /;
-$else.modelDefinition
   model hybrid /all/;
-$endif.modelDefinition
-*hybrid.tolinfeas = 1e-8;
+
 
 ***------------------------------------------------------------------------------
 ***------------------------------------------------------------------------------

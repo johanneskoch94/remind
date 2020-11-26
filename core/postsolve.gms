@@ -5,16 +5,6 @@
 *** |  REMIND License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: remind@pik-potsdam.de
 *** SOF ./core/postsolve.gms
-$ifthen %standAlone% == "off" 
-$else 
-jk_pm_cesIO(ttot,regi,ppfEn) = vm_cesIO.l(ttot,regi,ppfEn);
-jk_pm_priceEnergy(ttot,regi,ppfEn) = jk_emu_slope(ttot,regi,ppfEn)*vm_cesIO.l(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn);
-display jk_pm_priceEnergy;
-
-* Otherwise compilation error below, in line 29
-q_co2eq.m(ttot,regi) = 0;  
-$endif
-
 *-------------------------------calculate regional permit prices-----------------------------------
 *** saving CO2 tax used in this iteration
 pm_taxCO2eq_iteration(iteration,ttot,regi) = pm_taxCO2eq(ttot,regi);
