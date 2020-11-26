@@ -143,11 +143,12 @@ base_copy <- paste0("../tmp_remind_base", format(Sys.time(), "_%Y-%m-%d_%H.%M.%S
 rsync_cmd <- paste0("rsync -a -W --inplace ../remind/ ", base_copy,
                     " --include scripts/output/ --exclude output/ --exclude tutorials/ --exclude .git/ --exclude doc/ ")
 system(rsync_cmd)
+start_gdxs <- grep("\\.gdx",c(scenarios[,"path_gdx"],scenarios[,"path_gdx_ref"],scenarios[,"path_gdx_bau"]), value = T)
+if (length(start_gdxs) != 0) q <- lapply(start_gdxs, function(x) {system(paste0("rsync -a -W --inplace -R ",x," ",base_copy))})
 cat( "done.\n")
 # Switch working directory
 setwd(base_copy)
 #######################################################################
-
 
 
 
@@ -189,9 +190,14 @@ for (scen in rownames(scenarios)) {
   if (scenConfigFileExists) {
     # Check if this scen is dependent on other jobs finishing before it can start. If so, then
     # the ids, and the pathways to the folders, of the jobs they depend on have to be determined.
-    if (grepl(".gdx$", scenarios[scen,"path_gdx_ref"]) || is.na(scenarios[scen,"path_gdx_ref"])) {
+    if (is.na(scenarios[scen,"path_gdx_ref"])) {
         wait_for_ids <- NULL
         ref_bau_pathways <- list()
+
+    } else if (grepl("\\.gdx$", scenarios[scen,"path_gdx_ref"])) {
+        wait_for_ids <- NULL
+        ref_bau_pathways <-list(ref = scenarios[scen,"path_gdx_ref"],
+                                bau = scenarios[scen,"path_gdx_bau"])
 
     } else {
         wait_for_ids <- job_ids[scenarios[scen,'path_gdx_ref']]
@@ -200,7 +206,7 @@ for (scen in rownames(scenarios)) {
     }
 
     cfg <- configure_cfg(cfg, scen, scenarios, settings, ref_bau_pathways)
-    } else {
+  } else {
     wait_for_ids <- NULL
   }
   # --------------------------------------------------------------------

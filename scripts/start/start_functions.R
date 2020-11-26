@@ -77,13 +77,21 @@ configure_cfg <- function(icfg, iscen, iscenarios, isettings, iref_bau_pathways 
                  input_bau.gdx = isettings[iscen, "path_gdx_bau"])
 
     # Remove potential elements that contain ".gdx" and append gdxlist
-    icfg$files2export$start <- .setgdxcopy(".gdx", icfg$files2export$start, gdxlist)
+    icfg$files2export$start <- .setgdxcopy("\\.gdx", icfg$files2export$start, gdxlist)
 
     if (!is.null(iref_bau_pathways$ref)) {
-      icfg$files2export$start['input_ref.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$ref,"/fulldata.gdx")
+      if (grepl("\\.gdx$",iref_bau_pathways$ref)){
+        icfg$files2export$start['input_ref.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$ref)
+      } else {
+        icfg$files2export$start['input_ref.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$ref,"/fulldata.gdx")
+      }
     }
     if (!is.null(iref_bau_pathways$bau)) {
-      icfg$files2export$start['input_bau.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$bau,"/fulldata.gdx")
+      if (grepl("\\.gdx$",iref_bau_pathways$ref)){
+        icfg$files2export$start['input_bau.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$bau)
+      } else {
+        icfg$files2export$start['input_bau.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$bau,"/fulldata.gdx")
+      }
     }
 
     # add gdx information for subsequent runs
