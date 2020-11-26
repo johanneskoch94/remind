@@ -7,8 +7,8 @@
 *** SOF ./modules/80_optimization/nash/preloop.gms
 *MLB/AG* for Nash algorithm read initial price data from gdx
   Execute_Loadpoint 'input' pm_pvp      = pm_pvp;
-  Execute_Loadpoint 'input' vm_Xport.l  = vm_Xport.l;
-  Execute_Loadpoint 'input' vm_Mport.l  = vm_Mport.l;
+*  Execute_Loadpoint 'input' vm_Xport.l  = vm_Xport.l;
+*  Execute_Loadpoint 'input' vm_Mport.l  = vm_Mport.l;
   Execute_Loadpoint 'input' vm_cons.l   = vm_cons.l;
   Execute_Loadpoint 'input' vm_taxrev.l = vm_taxrev.l;
   Execute_Loadpoint 'input' vm_fuExtr.l = vm_fuExtr.l;

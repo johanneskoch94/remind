@@ -36,10 +36,11 @@ $offdigit
 
 ***---------------------    Run name    -----------------------------------------
 $setGlobal c_expname  test
+***---------------------    Use Human Capital    --------------------------------
+$setGlobal human_capital off
 ***---------------------    Energy System Emulator    ---------------------------
 $setGlobal emulator_energySys  on_1
-***
-$setGlobal human_capital on
+
 
 ***------------------------------------------------------------------------------
 ***                           MODULES
@@ -259,8 +260,7 @@ pm_shPerm(t,regi) = 1;
 pm_emicapglob(t) = 1000;
 
 *** Load in Trade variabes, and fix trade in PE
-Execute_Loadpoint 'input_ref' vm_Mport.l = vm_Mport.l;
-Execute_Loadpoint 'input_ref' vm_Xport.l = vm_Xport.l;
+Execute_Loadpoint 'input_ref' vm_Mport, vm_Xport, pm_costTradePe = vm_tradecost.l;
 vm_Xport.fx(tall,regi,tradePe) = vm_Xport.l(tall,regi,tradePe);
 vm_Mport.fx(tall,regi,tradePe) = vm_Mport.l(tall,regi,tradePe);
 
@@ -312,11 +312,6 @@ LOOP(iteration $(ord(iteration)<(cm_iteration_max+1)),
 ***         BOUNDS
 *--------------------------------------------------------------------------
 $batinclude "./standalone/macro/include_bounds.gms" bounds
-
-*** set Mport and Xport positive
-vm_Mport.lo(ttot,regi,tradePe)$(ttot.val ge 2005) = 0;
-vm_Xport.lo(ttot,regi,tradePe)$(ttot.val ge 2005) = 0;
-
 vm_costpollution.fx(t,regi)=0;
 
 ***--------------------------------------------------------------------------

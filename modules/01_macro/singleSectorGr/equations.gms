@@ -28,7 +28,7 @@ qm_budget(ttot,regi)$( ttot.val ge cm_startyear ) ..
   + sum(in, vm_invRD(ttot,regi,in))
   + sum(in, vm_invInno(ttot,regi,in))
   + sum(in, vm_invImi(ttot,regi,in))
-  + vm_costTradePe(ttot,regi)   
+  + pm_costTradePe(ttot,regi)   
   + vm_taxrev(ttot,regi)$(ttot.val ge 2010)
   + vm_costAdjNash(ttot,regi)
   + sum(in_enerSerAdj(in), vm_enerSerAdj(ttot,regi,in))

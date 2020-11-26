@@ -12,7 +12,7 @@ $setglobal phase %1
 $include "./modules/01_macro/module.gms"
 $include "./modules/02_welfare/module.gms"
 $include "./modules/20_growth/module.gms"
-$include "./modules/24_trade/module.gms"
+$include "./modules/23_capitalMarket/module.gms"
 $include "./modules/29_CES_parameters/module.gms"
 *######################## R SECTION END (MODULES) ##############################
 *** EOF ./standalone/macro/include.gms

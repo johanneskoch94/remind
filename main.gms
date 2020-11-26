@@ -140,10 +140,6 @@ option profile = 0;
 
 ***---------------------    Run name    -----------------------------------------
 $setGlobal c_expname  test
-***---------------------    Stand alone    --------------------------------------
-$setGlobal standAlone  macro
-***---------------------    Energy System Emulator    ---------------------------
-$setGlobal emulator_energySys  on_1
 
 ***------------------------------------------------------------------------------
 ***                           MODULES
