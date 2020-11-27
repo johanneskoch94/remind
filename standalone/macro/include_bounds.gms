@@ -13,6 +13,7 @@ $include "./modules/01_macro/module.gms"
 $include "./modules/02_welfare/module.gms"
 $include "./modules/20_growth/module.gms"
 $include "./modules/21_tax/module.gms"
+$include "./modules/29_CES_parameters/module.gms"
 $include "./modules/50_damages/module.gms"
 $include "./modules/80_optimization/module.gms"
 *######################## R SECTION END (MODULES) ##############################

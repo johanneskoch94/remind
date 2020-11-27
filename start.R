@@ -143,8 +143,11 @@ base_copy <- paste0("../tmp_remind_base", format(Sys.time(), "_%Y-%m-%d_%H.%M.%S
 rsync_cmd <- paste0("rsync -a -W --inplace ../remind/ ", base_copy,
                     " --include scripts/output/ --exclude output/ --exclude tutorials/ --exclude .git/ --exclude doc/ ")
 system(rsync_cmd)
-start_gdxs <- grep("\\.gdx",c(scenarios[,"path_gdx"],scenarios[,"path_gdx_ref"],scenarios[,"path_gdx_bau"]), value = T)
-if (length(start_gdxs) != 0) q <- lapply(start_gdxs, function(x) {system(paste0("rsync -a -W --inplace -R ",x," ",base_copy))})
+# If start gdxs are given, then make sure they're copied as well
+if (scenConfigFileExists) { 
+  start_gdxs <- unique(grep("\\.gdx",c(scenarios[,"path_gdx"],scenarios[,"path_gdx_ref"],scenarios[,"path_gdx_bau"]), value = T))
+  if (length(start_gdxs) != 0) q <- lapply(start_gdxs, function(x) {system(paste0("rsync -a -W --inplace -R ",x," ",base_copy))})
+}
 cat( "done.\n")
 # Switch working directory
 setwd(base_copy)
