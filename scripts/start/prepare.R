@@ -526,9 +526,16 @@ cfg$files2export$start <- sub("conopt3",cfg$gms$cm_conoptv,cfg$files2export$star
 
 # JK SET EMULATOR FILE PATH
 if(cfg$model == "standalone/macro/main.gms"){
+  content_1 <- paste0("$include \"standalone/macro/input/",cfg$emulator_file,"\"")
   replace_in_file(file = 'standalone/macro/datainput.gms',
-                  content = paste0("$include \"./standalone/macro/input/",cfg$emulator_file,"\""),
+                  content = content_1,
                   subject = "FEMULATOR",
+                  comment="***")
+#  content_2 <- sub("posYIntercept_posSlope","emissions",content_1)
+  content_2 <- sub("\\.cs4r","_emissions.cs4r",content_1)
+  replace_in_file(file = 'standalone/macro/datainput.gms',
+                  content = content_2,
+                  subject = "FEMULATOR_EMISSIONS",
                   comment="***")
 }
 

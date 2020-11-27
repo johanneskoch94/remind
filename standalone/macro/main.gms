@@ -267,12 +267,12 @@ $endif
 
 
 
-Execute_Loadpoint 'input' pm_macCost = pm_macCost;
+execute_load 'input' pm_macCost = pm_macCost;
 pm_shPerm(t,regi) = 1;
 pm_emicapglob(t) = 1000;
 
 *** Load in Trade variabes, and fix trade in PE
-Execute_Loadpoint 'input_ref' vm_Mport, vm_Xport, pm_costTradePe = vm_tradecost.l;
+execute_load 'input_ref' vm_Mport, vm_Xport, pm_costTradePe = vm_tradecost.l;
 vm_Xport.fx(tall,regi,tradePe) = vm_Xport.l(tall,regi,tradePe);
 vm_Mport.fx(tall,regi,tradePe) = vm_Mport.l(tall,regi,tradePe);
 
@@ -287,8 +287,8 @@ $batinclude "./standalone/macro/include_equations.gms"    equations
 ***           PRELOOP   Calculations before the Negishi-loop starts
 ***                     (e.g. initial calibration of macroeconomic module)
 *--------------------------------------------------------------------------
-Execute_Loadpoint 'input' qm_budget.m = qm_budget.m;
-Execute_Loadpoint 'input' pm_pvpRegi = pm_pvpRegi;
+execute_load 'input' qm_budget.m = qm_budget.m;
+execute_load 'input' pm_pvpRegi = pm_pvpRegi;
 $batinclude "./standalone/macro/include_sets.gms"    preloop
 
 *--------------------- MODEL DEFINITION & SOLVER OPTIONS ------------------
@@ -306,11 +306,12 @@ $IFI %optimization% == 'nash' option reslim = 7200;
 option iterlim   = 1.e+6;
 option solprint  = off ;
 
+
 ***-------------------------------------------------------------------
 ***                     read GDX
 ***-------------------------------------------------------------------
 *** load start gdx
-execute_loadpoint 'input';
+execute_loadpoint 'input' vm_emiTe;
 
 ***--------------------------------------------------------------------------
 ***    start iteration loop 
@@ -340,7 +341,7 @@ $batinclude "./standalone/macro/include_datainput.gms" presolve
 *** Parameters are not automatically treated by the fixing mechanism above.
 
 if( (cm_startyear gt 2005),
-  Execute_Loadpoint 'input_ref' p_pvpRef = pm_pvp;
+  execute_load 'input_ref' p_pvpRef = pm_pvp;
   pm_pvp(ttot,trade)$( (ttot.val ge 2005) and (ttot.val lt cm_startyear)) = p_pvpRef(ttot,trade);
 );     
 
@@ -403,7 +404,8 @@ else
   );
 );
 
-);  !! close iteration loop
+);
+* close iteration loop
 
 $batinclude "./standalone/macro/include_equations.gms"    output
 *** EOF ./main.gms

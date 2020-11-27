@@ -58,8 +58,10 @@ jk_emu_y2(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"y2");
 
 * Emissions emulator 
 table jk_emi_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters" 
-$ondelim                 
+$ondelim       
+***######################## R SECTION START (FEMULATOR_EMISSIONS) ###############################          
 $include "./standalone/macro/input/jk_femulator_type1__base_lab_allT_smooth_testme_emissions.cs4r"
+***######################### R SECTION END (FEMULATOR_EMISSIONS) ################################
 $offdelim
 ;
 
