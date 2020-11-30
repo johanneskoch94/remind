@@ -45,7 +45,7 @@ if(cm_prtpScen eq 3, pm_prtp(regi) = 0.03);
 table jk_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters"  
 $ondelim                
 ***######################## R SECTION START (FEMULATOR) ###############################
-$include "./standalone/macro/input/jk_femulator_type1__base_lab_allT_smooth_posYIntercept_posSlope.cs4r"
+$include "./standalone/macro/input/jk_femulator_type1__v2.1.3_SSP2_posYIntercept_posSlope.cs4r"
 ***######################### R SECTION END (FEMULATOR) ################################
 $offdelim
 ;
@@ -60,7 +60,7 @@ jk_emu_y2(ttot,all_regi,all_in) = jk_femulator(ttot,all_regi,all_in,"y2");
 table jk_emi_femulator(ttot,all_regi,all_in,emu_pm)     "Supply curve parameters" 
 $ondelim       
 ***######################## R SECTION START (FEMULATOR_EMISSIONS) ###############################          
-$include "./standalone/macro/input/jk_femulator_type1__base_lab_allT_smooth_testme_emissions.cs4r"
+$include "./standalone/macro/input/jk_femulator_type1__v2.1.3_SSP2_posYIntercept_posSlope_emissions.cs4r"
 ***######################### R SECTION END (FEMULATOR_EMISSIONS) ################################
 $offdelim
 ;
@@ -128,7 +128,11 @@ pm_pricePerm(ttot) = 0;
 $ifthen.human_capital %human_capital% == "on"
 table f_edu(all_regi,tall,all_POPscen)        "Labour data"
 $ondelim
+$ifthen.covid cm_GDPcovid == 1
+$include "./standalone/macro/input/remind_input_LAYS_COVID_shock.csv"
+$else.covid
 $include "./standalone/macro/input/remind_input_LAYS.csv"
+$endif.covid
 $offdelim
 ;
 pm_education(ttot,all_regi) = f_edu(all_regi,ttot,"%cm_POPscen%");
@@ -140,6 +144,7 @@ $endif.human_capital
 *** ---- FE demand trajectories for calibration -------------------------------
 *** also used for limiting secondary steel demand in baseline and policy 
 *** scenarios
+$ifthen.calibrate %CES_parameters% == "calibrate"
 parameter
 pm_fedemand(tall,all_regi,all_GDPscen,all_in)    "final energy demand"
 /
@@ -148,6 +153,7 @@ $include "./core/input/pm_fe_demand.cs4r"
 $offdelim
 /
 ;
+$endif.calibrate
 
 
 
@@ -156,8 +162,7 @@ $offdelim
 
 
 
-
-
+pm_tradecostgood(regi)        = 0.03;
 
 
 
@@ -302,10 +307,16 @@ pm_ppfen_ratios("feh2i","fegai") = 1;
 
 
 
+*** Damages
+pm_globalMeanTemperature(tall)              = 0;
+pm_globalMeanTemperatureZeroed1900(tall)    = 0;
+pm_temperatureImpulseResponseCO2(tall,tall) = 0;
 
-
-
-
+pm_regionalTemperature(tall,regi)      = 0;
+pm_tempScaleGlob2Reg(tall,regi)        = 1;
+pm_damage(tall,regi)                   = 1;
+pm_damageGrowthRate(tall,regi)         = 0;
+pm_damageMarginal(tall,regi)           = 0;
 
 
 
@@ -367,13 +378,13 @@ p80_etaST(tradePe) = 0.3;
 p80_etaST("good") = 0.25;
 p80_etaST("perm") = 0.3;
 
-$ifi %banking% == "banking"  p80_etaST("perm") = 0.2;      !! in banking mode, the permit market reacts more sensitively.
-$ifi %emicapregi% == "budget"  p80_etaST("perm") = 0.25;      !! in budget mode, the permit market reacts more sensitively.
+*$ifi %banking% == "banking"  p80_etaST("perm") = 0.2;      !! in banking mode, the permit market reacts more sensitively.
+*$ifi %emicapregi% == "budget"  p80_etaST("perm") = 0.25;      !! in budget mode, the permit market reacts more sensitively.
 
 *AJS* bio market seems to like this:
-p80_etaST("pebiolc") = 0.8;
+*p80_etaST("pebiolc") = 0.8;
 ***peur market is more sensitive, so choose lower etaST
-p80_etaST("peur") = 0.2;
+*p80_etaST("peur") = 0.2;
 
 s80_converged = 0;
 

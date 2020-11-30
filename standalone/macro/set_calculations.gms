@@ -13,15 +13,6 @@ Scalar
 regi(all_regi) = YES;
 display regi;
 
-* OVERWRITE trade sets: only macro good is traded
-$onMultiR
-sets
-tradeMacro(all_enty)        "Traded macro-economic commodities"     / good /
-tradePe(all_enty)           "Traded primary energy commodities"     / null /
-;
-$offMulti
-trade(enty)  = tradeMacro(enty);
-
 
 entyFe(enty) = entyFeStat(enty) + entyFeTrans(enty);
 

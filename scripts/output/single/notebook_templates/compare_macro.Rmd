@@ -1,0 +1,305 @@
+---
+title: "Comparison of Macro-economic REMIND results"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+params:
+  output_folders: !r c("/home/johannes/piktmp/remind/output/default_slim_2020-03-03_11.37.51/",
+                       "/home/johannes/piktmp/remind/output/macro_sa_negishi_2020-11-17_17.27.53/")
+  my_regions: !r c("CAZ","CHA","EUR","IND","JPN","LAM","MEA","NEU", "OAS","REF","SSA","USA")
+knit: (function(inputFile, encoding){
+  rmarkdown::render(inputFile,
+    encoding=encoding,
+    output_file='../Macro_reports/cmp_macro') }) 
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(quitte)
+library(myUtils)
+
+opts_chunk$set(echo = FALSE)
+opts_chunk$set(warning = FALSE)
+opts_chunk$set(message = FALSE)
+opts_chunk$set(out.width = "100%")
+```
+
+
+### Comparing following scenarios:
+
+```{r input}
+# my_folders <- c("/home/johannes/piktmp/remind/output/default_2020-06-23_15.46.16/",
+#                 "/home/johannes/piktmp/remind/output/macro_sa_nash_2020-10-20_16.22.56/")
+fulldata_paths <- paste0(params$output_folders,"fulldata.gdx")
+fulldata_paths <- fulldata_paths[file.exists(fulldata_paths)]
+scen_names <- get_REMIND_run_names(fulldata_paths)
+cat(paste(scen_names, collapse = "\n"))
+```
+
+
+```{r loading the data, results="hide"}
+gdx_items <- list(list(name="vm_welfareGlob", field="l"),
+                  list(name="v02_welfare", field="l"),
+                  list(name="pm_w", field="l"),
+                  list(name="vm_cons", field="l"),
+                  list(name="vm_Mport", field="l"),
+                  list(name="vm_Xport", field="l"),
+                  list(name="vm_cesIO", field="l"),
+                  list(name="vm_invMacro", field="l"),
+                  list(name="vm_costEnergySys", field="l"),
+                  list(name="vm_emiTe", field="l"))
+my_data <- read_items_from_gdxs(fulldata_paths, gdx_items)
+my_data <- lapply(my_data, function(y) {
+  
+  if("all_regi" %in% colnames(y)) y <- filter(y,all_regi %in% c("GLO", params$my_regions)) 
+  
+  if("ttot" %in% colnames(y)) y <- filter(y, ttot <= 2100) 
+  else if("tall" %in% colnames(y)) y <- filter(y, tall <= 2100)
+  else y <- y
+  
+  y <- rename(y, "scenarios"=run) %>% mutate(scenarios = substr(scenarios,1,20)) 
+  
+  return(y)
+  })
+```
+
+\
+\
+
+
+### **Welfare** 
+```{r welfare}
+ggplot(my_data$vm_welfareGlob) +
+  geom_col(aes(x=scenarios, y=value, fill=scenarios)) +
+  ylab("vm_welfareGlob")+
+  ggtitle("Global welfare")+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank())
+
+ggplot(my_data$v02_welfare) +
+  geom_col(aes(x=scenarios, y=value, fill=scenarios))+
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("v02_welfare")+ 
+  ggtitle("Regional welfare")+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank())
+```
+
+
+\
+\
+
+
+### **Consumption** 
+```{r cons}
+ggplot(my_data$vm_cons) +
+  geom_line(aes(x=ttot, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_cons in T$/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Consumption")
+```
+
+\
+\
+
+
+### **Trade** 
+```{r trade}
+# good_balance <- my_data$vm_Xport %>%
+#   rename("Xport"=value) %>% 
+#   full_join(my_data$vm_Mport %>% 
+#               rename("Mport"=value)) %>%
+#   filter(all_enty=="good") %>%
+#   mutate(across(.cols=c(Xport,Mport), ~ ifelse(is.na(.x),0,.x))) %>% 
+#   mutate(value = Xport - Mport) %>%
+#   select(tall, all_regi, all_enty, scenarios, value)
+# 
+# 
+# ggplot(good_balance) +
+#   geom_line(aes(x=tall, y=value, color=scenarios)) +
+#   facet_wrap("all_regi", scales = "free_y") +
+#   ylab("vm_Xport-vm_Mport in T$/yr") +
+#   xlab("year") +
+#   scale_x_continuous(breaks=c(2025,2100)) +
+#   ggtitle("Trade balance of macro economic good")
+```
+
+\
+\
+
+
+
+### **Income** 
+```{r cesIO_inco}
+ggplot(my_data$vm_cesIO %>% filter(all_in=="inco")) +
+  geom_line(aes(x=tall, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_cesIO: income in T$/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Income")
+```
+
+\
+\
+
+
+### **Production factor Capital** 
+```{r cesIO_Capital}
+ggplot(my_data$vm_cesIO %>% filter(all_in=="kap")) +
+  geom_line(aes(x=tall, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_cesIO: capital in T$/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Capital")
+
+ggplot(my_data$vm_invMacro) +
+  geom_line(aes(x=ttot, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_invMacro in T$/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Capital investment")
+```
+
+\
+\
+
+
+### **Production factor Energy: Aggregate** 
+```{r cesIO_en}
+ggplot(my_data$vm_cesIO %>% filter(all_in=="en")) +
+  geom_line(aes(x=tall, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_cesIO: energy in TWa/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Energy")
+```
+
+\
+\
+
+### **Production factor Energy: Final Energy** 
+```{r cesIO_fe_allRegions}
+ppfEN <- c("ueelTt","ueHDVt","ueLDVt",
+           "fesob","fegab","feelb","feheb","fehob","feh2b",
+           "fesoi","fegai","feeli","fehei","fehoi","feh2i")
+
+ggplot(my_data$vm_cesIO %>% filter(all_in %in% ppfEN)) +
+  geom_line(aes(x=tall, y=value, linetype=all_in, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_cesIO: final energies in TWa/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Final energies: ppfEN")
+```
+
+\
+\
+
+### **Final energy inputs to the production function for single regions** 
+```{r cesIO_fe_reg}
+for (my_region in params$my_regions) {
+  gg <- ggplot(my_data$vm_cesIO %>% filter(all_in %in% ppfEN, all_regi==my_region)) +
+    geom_line(aes(x=tall, y=value, color=scenarios)) +
+    facet_wrap("all_in", scales = "fixed") +
+    ylab("vm_cesIO: final energies in TWa/yr") +
+    xlab("year") + 
+    scale_x_continuous(breaks=c(2025,2100)) +
+    ggtitle(paste0("Final energies for ", my_region))
+  print(gg)
+}
+```
+
+\
+\
+
+
+### **Total costs of the energy system** 
+```{r costEnergySys}
+# costEnSys_data <- costEnSys_data %>% mutate(!!var_name1:=!!var_name1*1000, 
+#                                             !!var_name2:=!!var_name2*1000)
+
+ggplot(my_data$vm_costEnergySys) +
+  geom_line(aes(x=ttot, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_costEnergySys in T$/yr") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Cost of all ppfEN")
+
+#for (my_region in params$my_regions) {
+#  gg <- ggplot(my_data$vm_costEnergySys %>% filter(all_regi==my_region)) +
+#    geom_line(aes(x=ttot, y=value, color=scenarios)) +
+#    ylab("vm_costEnergySys  in T$/yr") +
+#    xlab("year") + 
+#    scale_x_continuous(breaks=c(2025,2100)) +
+#    ggtitle(paste0("Cost of all ppfEN - ",my_region))
+#  print(gg)
+#}
+```
+
+
+
+
+### **Emissions** 
+```{r emissions}
+# costEnSys_data <- costEnSys_data %>% mutate(!!var_name1:=!!var_name1*1000, 
+#                                             !!var_name2:=!!var_name2*1000)
+
+ggplot(my_data$vm_emiTe %>% filter(all_enty == "co2")) +
+  geom_line(aes(x=ttot, y=value, color=scenarios)) +
+  facet_wrap("all_regi", scales = "free_y") +
+  ylab("vm_emiTe in GtC") +
+  xlab("year") + 
+  scale_x_continuous(breaks=c(2025,2100)) +
+  ggtitle("Emissions")
+
+for (my_region in params$my_regions) {
+  gg <- ggplot(my_data$vm_emiTe %>% filter(all_enty == "co2", all_regi==my_region)) +
+    geom_line(aes(x=ttot, y=value, color=scenarios)) +
+    ylab("vm_emiTe  in GtC") +
+    xlab("year") + 
+    scale_x_continuous(breaks=c(2025,2100)) +
+    ggtitle(paste0("Emissions - ",my_region))
+  print(gg)
+}
+```
+
+
+
+```{r}
+
+# ggplot(my_data$vm_emiTe %>% 
+#          filter(all_enty == "co2", all_regi=="EUR", ttot<=2100) %>% 
+#          mutate(scenarios = if_else(scenarios=="default_slim", "Default", "With ESM emulator"))) +
+#   geom_line(aes(x=ttot, y=value, color=scenarios, linetype=scenarios)) +
+#   facet_wrap("all_regi", scales = "free_y") +
+#   ylab("CO2 emissions in GTC") +
+#   xlab("Year") + 
+#   scale_x_continuous(breaks=c(2025,2050,2075,2100)) +
+#   #ggtitle("Total co2 emissions") +
+#   scale_color_manual(values = c("black","red"))
+# 
+# ggsave("emi_plot.png",path = "../../../Documents/iamc/")
+# 
+# 
+# 
+# ggplot(my_data$vm_cesIO %>% 
+#          filter(all_in=="en", all_regi =="EUR", tall<=2100) %>% 
+#          mutate(scenarios = if_else(scenarios=="default_slim",  "Default", "With ESM emulator"))) +
+#   geom_line(aes(x=tall, y=value, color=scenarios, linetype=scenarios)) +
+#   facet_wrap("all_regi", scales = "free_y") +
+#   ylab("Final energy in TWa/yr") +
+#   xlab("Year") + 
+#   scale_x_continuous(breaks=c(2025,2050,2075,2100)) +
+#   #ggtitle("Total final energy") +
+#   scale_color_manual(values = c("black","red"))
+# 
+# ggsave("fe_plot.png",path = "../../../Documents/iamc/")
+```
+

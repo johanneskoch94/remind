@@ -46,7 +46,7 @@ $offdigit
 ***---------------------    Run name    -----------------------------------------
 $setGlobal c_expname  test
 ***---------------------    Use Human Capital    --------------------------------
-$setGlobal human_capital on
+$setGlobal human_capital off
 ***---------------------    Energy System Emulator    ---------------------------
 $setGlobal emulator_energySys  on_1
 
@@ -55,9 +55,9 @@ $setGlobal emulator_energySys  on_1
 ***                           MODULES
 ***------------------------------------------------------------------------------
 ***---------------------    01_macro    -----------------------------------------
-$setGlobal macro  singleSectorGr  !! def = singleSectorGr
+$setGlobal macro  singleSectorGr      !! def = singleSectorGr
 ***---------------------    02_welfare    ---------------------------------------
-$setGlobal welfare  utilitarian  !! def = utilitarian
+$setGlobal welfare  utilitarian       !! def = utilitarian
 ***---------------------    04_PE_FE_parameters    ------------------------------
 $setGlobal PE_FE_parameters  iea2014  !! def = iea2014
 ***---------------------    05_initialCap    ------------------------------------
@@ -71,23 +71,23 @@ $setGlobal downscaleTemperature  off  !! def = off
 ***---------------------    20_growth    ----------------------------------------
 $setGlobal growth  exogenous          !! def = exogenous
 ***---------------------    21_tax    -------------------------------------------
-$setGlobal tax  off                    !! def = on
+$setGlobal tax  off                   !! def = on
 ***---------------------    22_subsidizeLearning    -----------------------------
 $setGlobal subsidizeLearning  off     !! def = off
 ***---------------------    23_capitalMarket    ---------------------------------
-$setGlobal capitalMarket  debt_limit     !! def = perfect
+$setGlobal capitalMarket  debt_limit  !! def = perfect
 ***---------------------    24_trade    -----------------------------------------
-$setGlobal trade  standard     !! def = standard
+$setGlobal trade  standard            !! def = standard
 ***---------------------    26_agCosts ------------------------------------------
-$setGlobal agCosts  costs               !! def = costs
+$setGlobal agCosts  costs             !! def = costs
 ***---------------------    29_CES_parameters    --------------------------------
-$setglobal CES_parameters  calibrate       !! def = load
+$setglobal CES_parameters  load       !! def = load
 ***---------------------    30_biomass    ---------------------------------------
-$setGlobal biomass  magpie_40 !! def = magpie_40
+$setGlobal biomass  magpie_40         !! def = magpie_40
 ***---------------------    31_fossil    ----------------------------------------
-$setGlobal fossil  timeDepGrades        !! def = grades2poly
+$setGlobal fossil  grades2poly      !! def = grades2poly
 ***---------------------    32_power    -----------------------------------------
-$setGlobal power  IntC               !! def = IntC
+$setGlobal power  IntC                !! def = IntC
 ***---------------------    33_cdr       ----------------------------------------
 $setGlobal CDR  DAC                   !! def = DAC
 ***---------------------    35_transport    -------------------------------------
@@ -99,7 +99,7 @@ $setglobal industry  fixed_shares     !! def = simple
 ***---------------------    38_stationary    ------------------------------------
 $setglobal stationary  off            !! def = simple
 ***---------------------    39_CCU    -------------------------------------------
-$setglobal CCU  off !! def = off
+$setglobal CCU  off                   !! def = off
 ***---------------------    40_techpol  -----------------------------------------
 $setglobal techpol  none              !! def = none
 ***---------------------    41_emicapregi  --------------------------------------
@@ -113,7 +113,7 @@ $setglobal regipol  none              !! def = none
 ***---------------------    50_damages    ---------------------------------------
 $setGlobal damages  off               !! def = off
 ***---------------------    51_internalizeDamages    ----------------------------
-$setGlobal internalizeDamages  off               !! def = off
+$setGlobal internalizeDamages  off    !! def = off
 ***---------------------    70_water  -------------------------------------------
 $setglobal water  off                 !! def = off
 ***---------------------    80_optimization    ----------------------------------
@@ -140,31 +140,37 @@ cm_ccapturescen
 c_macscen                   "use of mac"
 cm_bioenergy_tax            "level of bioenergy tax in fraction of bioenergy price"
 cm_tradecost_bio  
-cm_startyear                "first optimized modelling time step"
-cm_prtpScen                 "pure rate of time preference standard values"
-cm_damage                   "cm_damage factor for forcing overshoot"
-cm_iterative_target_adj     "whether or not a tax or a budget target should be iteratively adjusted depending on actual emission or forcing level"
-cm_trdcst                   "parameter to scale trade export cost for gas"
-cm_trdadj                   "parameter scale the adjustment cost parameter for increasing gas trade export"
+cm_startyear                            "first optimized modelling time step"
+cm_prtpScen                             "pure rate of time preference standard values"
+cm_damage                               "cm_damage factor for forcing overshoot"
+cm_damages_BurkeLike_specification      "empirical specification for Burke-like damage functions"
+cm_damages_BurkeLike_persistenceTime    "persistence time in years for Burke-like damage functions"
+cm_damages_SccHorizon                   "Horizon for SCC calculation. Damages cm_damagesSccHorizon years into the future are internalized."
+cm_iterative_target_adj                 "whether or not a tax or a budget target should be iteratively adjusted depending on actual emission or forcing level"
+cm_trdcst                               "parameter to scale trade export cost for gas"
+cm_trdadj                               "parameter scale the adjustment cost parameter for increasing gas trade export"
 ;
-cm_iteration_max            = 1;            !! def = 1
-c_solver_try_max            = 2;            !! def = 2
-c_keep_iteration_gdxes      = 0;            !! def = 0
-cm_nash_autoconverge        = 1;            !! def = 1
-cm_TaxConvCheck             = 1;            !! def = 1
-cm_emiscen                  = 1;            !! def = 1
-cm_GDPcovid                 = 0;            !! def = 0
-cm_multigasscen             = 2;            !! def = 2
-cm_ccapturescen             = 1;            !! def = 1
-c_macscen                   = 1;            !! def = 1
-cm_bioenergy_tax            = 1.5;          !! def = 1.5
-cm_tradecost_bio            = 2;            !! def = 2
-cm_startyear                = 2005;         !! def = 2005 for a BAU, 2015 for policy runs
-cm_prtpScen                 = 3;            !! def = 3
-cm_damage                   = 0.005;        !! def = 0.005
-cm_iterative_target_adj     = 0;            !! def = 0
-cm_trdadj                   = 2;            !! def = 2.0
-cm_trdcst                   = 1.5;          !! def = 1.5
+cm_iteration_max                      = 1;            !! def = 1
+c_solver_try_max                      = 2;            !! def = 2
+c_keep_iteration_gdxes                = 0;            !! def = 0
+cm_nash_autoconverge                  = 1;            !! def = 1
+cm_TaxConvCheck                       = 1;            !! def = 1
+cm_emiscen                            = 1;            !! def = 1
+cm_GDPcovid                           = 0;            !! def = 0
+cm_multigasscen                       = 2;            !! def = 2
+cm_ccapturescen                       = 1;            !! def = 1
+c_macscen                             = 1;            !! def = 1
+cm_bioenergy_tax                      = 1.5;          !! def = 1.5
+cm_tradecost_bio                      = 2;            !! def = 2
+cm_startyear                          = 2005;         !! def = 2005 for a BAU, 2015 for policy runs
+cm_prtpScen                           = 3;            !! def = 3
+cm_damage                             = 0.005;        !! def = 0.005
+cm_damages_BurkeLike_specification    = 0;            !! def = 0
+cm_damages_BurkeLike_persistenceTime  = 30;           !! def = 30
+cm_damages_SccHorizon                 = 100;          !! def = 100
+cm_iterative_target_adj               = 0;            !! def = 0
+cm_trdadj                             = 2;            !! def = 2.0
+cm_trdcst                             = 1.5;          !! def = 1.5
 *-------------------- flags ----------------------------------------------------
 $setglobal cm_MAgPIE_coupling         off             !! def = "off"
 $setglobal cm_rcp_scen                none            !! def = "none"
@@ -189,10 +195,15 @@ $setglobal c_CES_calibration_write_prices       0     !! def =  0
 $setglobal cm_CES_calibration_default_prices    0     !! def = 0
 $setGlobal cm_EsubGrowth              low             !! def = low
 ***
-$setglobal c_testOneRegi_region       NEU             !! def = EUR
+$setglobal c_testOneRegi_region       EUR             !! def = EUR
 ***
-$setGlobal cm_less_TS  on  !! def = on
+$setGlobal cm_less_TS           on      !! def = on
 $setGlobal cm_Full_Integration  off     !! def = off
+*** Damage related
+$setGlobal cm_magicc_calibrateTemperature2000     uncalibrated            !! def=uncalibrated
+$setGlobal cm_magicc_config                       OLDDEFAULT              !! def = OLDDEFAULT
+$setGlobal cm_magicc_temperatureImpulseResponse   off                     !! def = off
+$setGlobal cm_damage_DiceLike_specification       HowardNonCatastrophic   !! def = HowardNonCatastrophic
 ***-----------------------------------------------------------------------------
 ***                    
 ***-----------------------------------------------------------------------------
@@ -206,9 +217,6 @@ option cns = %cm_conoptv%;
 *--------------------------------------------------------------------------
 ***           SETS
 *--------------------------------------------------------------------------
-sets
-emu_pm "emulator parameters" /slope, yIntercept ,x ,y, x2, y2 /
-;
 $include    "./core/sets.gms";
 $batinclude "./standalone/macro/include_sets.gms"    sets
 $include    "./standalone/macro/set_calculations.gms";
@@ -272,9 +280,11 @@ pm_shPerm(t,regi) = 1;
 pm_emicapglob(t) = 1000;
 
 *** Load in Trade variabes, and fix trade in PE
-execute_load 'input_ref' vm_Mport, vm_Xport, pm_costTradePe = vm_tradecost.l;
-vm_Xport.fx(tall,regi,tradePe) = vm_Xport.l(tall,regi,tradePe);
-vm_Mport.fx(tall,regi,tradePe) = vm_Mport.l(tall,regi,tradePe);
+execute_loadpoint 'input' pm_costTradePe = vm_tradecost.l;
+execute_loadpoint 'input' vm_Mport, vm_Xport;
+*vm_Xport.fx(tall,regi,tradePe) = vm_Xport.l(tall,regi,tradePe);
+*vm_Mport.fx(tall,regi,tradePe) = vm_Mport.l(tall,regi,tradePe);
+display vm_Mport.l;
 
 *--------------------------------------------------------------------------
 ***          EQUATIONS
@@ -325,7 +335,8 @@ LOOP(iteration $(ord(iteration)<(cm_iteration_max+1)),
 ***         BOUNDS
 *--------------------------------------------------------------------------
 $batinclude "./standalone/macro/include_bounds.gms" bounds
-vm_costpollution.fx(t,regi)=0;
+vm_costpollution.fx(t,regi) = 0;
+vm_invRD.fx(t,regi,in) = 0;
 
 ***--------------------------------------------------------------------------
 ***         PRESOLVE
@@ -380,6 +391,20 @@ o_negitr_disc_cons_drInt_reg(iteration,regi) =
 ***--------------------------------------------------------------------------
 * Write some info into the log.txt file. 
 Execute "printf '\nIteration '; grep LOOPS full.log | tail -n -1 | cut -d' ' -f5; printf  'Time: '; date '+%H:%M:%S'";
+
+* Core postsolve
+pm_GDPGross(ttot,regi)$( (pm_SolNonInfes(regi) eq 1) ) =  vm_cesIO.l(ttot,regi,"inco");
+*interpolate GDP
+loop(ttot$(ttot.val ge 2005),
+	loop(tall$(pm_tall_2_ttot(tall, ttot)),
+	    pm_GDPGross(tall,regi) =
+		(1- pm_interpolWeight_ttot_tall(tall)) * pm_GDPGross(ttot,regi)
+		+ pm_interpolWeight_ttot_tall(tall) * pm_GDPGross(ttot+1,regi);
+));
+* assume GDP is flat from 2150 on (only enters damage calculations in the far future)
+pm_GDPGross(tall,regi)$(tall.val ge 2150) = pm_GDPGross("2149",regi); 
+
+
 $batinclude "./standalone/macro/include_declarations.gms" postsolve
 
 *--------------------------------------------------------------------------

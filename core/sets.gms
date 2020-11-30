@@ -2535,4 +2535,9 @@ alias(ccs2te,ccs2te2);
 alias(pe2se,pe2se2);
 alias(se2fe,se2fe2);
 
+sets
+emu_pm            "emulator parameters"      /slope, yIntercept ,x ,y, x2, y2 /
+trade(all_enty)   "All traded commodities"   /good, perm/
+tradePe(trade)    "All traded commodities"   /null/
+;
 *** EOF ./core/sets.gms

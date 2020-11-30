@@ -12,13 +12,15 @@ $setglobal phase %1
 $include "./modules/01_macro/module.gms"
 $include "./modules/02_welfare/module.gms"
 $include "./modules/15_climate/module.gms"
+$include "./modules/16_downscaleTemperature/module.gms"
 $include "./modules/20_growth/module.gms"
 $include "./modules/23_capitalMarket/module.gms"
-$include "./modules/24_trade/module.gms"
+*$include "./modules/24_trade/module.gms"
 $include "./modules/26_agCosts/module.gms"
 $include "./modules/29_CES_parameters/module.gms"
 $include "./modules/36_buildings/module.gms"
 $include "./modules/50_damages/module.gms"
+$include "./modules/51_internalizeDamages/module.gms"
 $include "./modules/80_optimization/module.gms"
 *######################## R SECTION END (MODULES) ##############################
 *** EOF ./standalone/macro/include.gms

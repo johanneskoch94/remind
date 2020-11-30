@@ -87,7 +87,7 @@ configure_cfg <- function(icfg, iscen, iscenarios, isettings, iref_bau_pathways 
       }
     }
     if (!is.null(iref_bau_pathways$bau)) {
-      if (grepl("\\.gdx$",iref_bau_pathways$ref)){
+      if (grepl("\\.gdx$",iref_bau_pathways$bau)){
         icfg$files2export$start['input_bau.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$bau)
       } else {
         icfg$files2export$start['input_bau.gdx'] <- paste0(icfg$remind_folder,"/",iref_bau_pathways$bau,"/fulldata.gdx")

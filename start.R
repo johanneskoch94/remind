@@ -82,6 +82,7 @@ if (restart) {
     # because user might have renamed the folder before restarting
     cfg$results_folder <- paste0("output/",outputdir) 
     job_id <- submit_remind_run(cfg)
+    job_id_postProc <- submit_remind_postProc(cfg, wait_for = job_id)
   }
 
   # Little function to stop without printing an error

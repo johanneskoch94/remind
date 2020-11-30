@@ -423,4 +423,31 @@ file magicc_sed_script /                                 "./magicc/modify_MAGCFG
 
 magicc_sed_script.ap = 0;
 
+
+
+
+
+
+
+
+***-------------------------------------------------------------------------------
+***                                   PARAMETERS
+***-------------------------------------------------------------------------------
+parameters
+pm_tradecostgood(all_regi)                  "Trade costs (final good)."
+pm_Xport0(tall,all_regi,all_enty)           "Reference level value of export." 
+*pm_IO_trade(tall,all_regi,all_enty,char)    "Energy trade bounds based on IEA data."
+*p24_Mport2005correct(all_regi,all_enty)     "Correction factor to match fossil supply and internal region energy demand in the initial year"
+pm_costTradePe(ttot,all_regi)               "Trade costs for trading primary energies"
+;
+***-------------------------------------------------------------------------------
+***                                   VARIABLES
+***-------------------------------------------------------------------------------
+positive VARIABLES
+vm_Xport(tall,all_regi,trade)            "Export of traded commodity."
+vm_Mport(tall,all_regi,trade)            "Import of traded commodity."
+;
+
+
+
 *** EOF ./core/declarations.gms
