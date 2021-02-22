@@ -96,8 +96,7 @@ display "production function sets", cesOut2cesIn, cesOut2cesIn2, cesLevel2cesIO,
 
 emiMacMagpie(enty)   = emiMacMagpieCH4(enty) + emiMacMagpieN2O(enty) + emiMacMagpieCO2(enty);
 emiMacExo(enty)      = emiMacExoCH4(enty) + emiMacExoN2O(enty);
-
-
+emi(enty)            = emiTe(enty) + emiMac(enty) + emiExog(enty); 
 
 *** MAGICC related sets
 t_magiccttot(tall) = ttot(tall) + t_extra(tall);

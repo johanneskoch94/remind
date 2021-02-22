@@ -27,6 +27,8 @@ p15_so2emi(tall,all_enty)  "parameter to update so2 emissions between iterations
 
 p15_ta_val(tall)	 "auxiliary parameter",
 p15_conroh_interpol(tall)   "auxiliary parameter"
+
+p15_interpol(ta10)
 ;
 
 *** --------- POSITIVE VARIABLES ---------------

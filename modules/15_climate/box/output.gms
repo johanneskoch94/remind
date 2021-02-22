@@ -16,16 +16,18 @@ putclose res_ta;
 
 *-------------taken from reporting_generic_klima.inc (whole file)-------------
 
-sets 
-descr_box(descr)   "???"
-/ 
-"Concentration|CO2; ppm;"			 
-"Concentration|CH4; ppb;"			 
-"Concentration|N2O; ppb;"			 
-"Forcing; W/m2;"			 
-"Forcing|Kyoto Gases; W/m2;"
-"Temperature|Global Mean; K;"/;
+* sets 
+* descr_box(descr)   "???"
+* / 
+* "Concentration|CO2; ppm;"			 
+* "Concentration|CH4; ppb;"			 
+* "Concentration|N2O; ppb;"			 
+* "Forcing; W/m2;"			 
+* "Forcing|Kyoto Gases; W/m2;"
+* "Temperature|Global Mean; K;"
+* /
+* ;
 
-descr_all(descr) =   descr_all(descr) + descr_box(descr);
+* descr_all(descr) =   descr_all(descr) + descr_box(descr);
 
 *** EOF ./modules/15_climate/box/output.gms

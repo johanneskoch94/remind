@@ -333,7 +333,9 @@ v_prodEs(ttot,all_regi,all_enty,all_esty,all_teEs)          "Energy services (un
 
 equations
     q_costEnergySys(ttot,all_regi)
-    q_emiTe(ttot,all_regi,all_enty)    
+    q_emiTe(ttot,all_regi,all_enty)  
+    q_emiAll(ttot,all_regi,all_enty)                     "calculates all regional emissions as sum over energy and non-energy relates emissions"
+    q_emiAllGlob(ttot,all_enty)                          "calculates all global emissions as sum over regions"  
 ;
 ***----------------------------------------------------------------------------------------
 ***                                   SCALARS

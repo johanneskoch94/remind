@@ -156,7 +156,52 @@ $offdelim
 $endif.calibrate
 
 
+* EMISSIONS
+vm_emiAllGlob.l(ttot,enty) = 0;
 
+parameter pm_share_ind_fesos(tall,all_regi)					"Share of coal solids (coaltr) used in the industry (rest is residential)"
+/
+$ondelim
+$include "./core/input/p_share_ind_fesos.cs4r"
+$offdelim
+/
+;
+
+parameter pm_share_ind_fesos_bio(tall,all_regi)				"Share of biomass solids (biotr) used in the industry (rest is residential)"
+/
+$ondelim
+$include "./core/input/p_share_ind_fesos_bio.cs4r"
+$offdelim
+/
+;
+
+parameter pm_share_ind_fehos(tall,all_regi)					"Share of heating oil used in the industry (rest is residential)"
+/
+$ondelim
+$include "./core/input/p_share_ind_fehos.cs4r"
+$offdelim
+/
+;
+*** initialize pm_share_trans with the global value, will be updated after each negishi/nash iteration
+pm_share_trans("2005",regi) = 0.617;
+pm_share_trans("2010",regi) = 0.625;
+pm_share_trans("2015",regi) = 0.626;
+pm_share_trans("2020",regi) = 0.642;
+pm_share_trans("2025",regi) = 0.684;
+pm_share_trans("2030",regi) = 0.710;
+pm_share_trans("2035",regi) = 0.727;
+pm_share_trans("2040",regi) = 0.735;
+pm_share_trans("2045",regi) = 0.735;
+pm_share_trans("2050",regi) = 0.742;
+pm_share_trans("2055",regi) = 0.736;
+pm_share_trans("2060",regi) = 0.751;
+pm_share_trans("2070",regi) = 0.774;
+pm_share_trans("2080",regi) = 0.829;
+pm_share_trans("2090",regi) = 0.810;
+pm_share_trans("2100",regi) = 0.829;
+pm_share_trans("2110",regi) = 0.818;
+pm_share_trans("2130",regi) = 0.865;
+pm_share_trans("2150",regi) = 0.872;
 
 
 
@@ -351,8 +396,17 @@ pm_emissionsForeign(t,regi,enty) = 0;
 pm_SolNonInfes(regi) = 1; !! assume the starting point came from a feasible solution 
 pm_fuExtrForeign(t,regi,enty,rlf) = 0;
 
+vm_emiAll.l(ttot,regi,enty) = 0;
+
+
+
+
+
 
 $elseif %optimization% == "nash"
+
+pm_SolNonInfes(regi) = 1; !! assume the starting point came from a feasible solution 
+
 *** 
 *** 80_optimization nash
 ***
@@ -432,6 +486,14 @@ cm_iteration_max = 100;
   p80_surplusMaxTolerance("perm") = 70 * 12/44 / 1000 ;                !! convert MtCO2eq into internal unit GtC
    );
 );
+
+
+
+
+
+
+
+
 $elseif  %optimization% == "negishi"
 
 pm_pvp(ttot,trade)$(ttot.val ge 2005)               = 1;

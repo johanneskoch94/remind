@@ -61,7 +61,31 @@ q_emiTe(t,regi,emiTe(enty)) ..
     sum(ppfEn, jk_emi_emu_slope(t,regi,ppfEn) * vm_cesIO(t,regi,ppfEn) + jk_emi_emu_yIntercept(t,regi,ppfEn))
 ;
 
+***------------------------------------------------------
+*' Total regional emissions are the sum of emissions from technologies, MAC-curves, CDR-technologies and emissions that are exogenously given for REMIND.
+***------------------------------------------------------
+*LB* calculate total emissions for each region at each time step
+q_emiAll(t,regi,emi(enty)).. 
+  vm_emiAll(t,regi,enty) 
+  =e= 
+    vm_emiTe(t,regi,enty) 
+*  + vm_emiMac(t,regi,enty) 
+*  + vm_emiCdr(t,regi,enty) 
+*  + pm_emiExog(t,regi,enty)
+;
 
+***------------------------------------------------------
+*' Total global emissions are calculated for each GHG emission type and links the energy system to the climate module.
+***------------------------------------------------------
+*LB* calculate total global emissions for each timestep - link to the climate module
+q_emiAllGlob(t,emi(enty)).. 
+  vm_emiAllGlob(t,enty) 
+  =e= 
+  sum(regi, 
+    vm_emiAll(t,regi,enty) 
+  + pm_emissionsForeign(t,regi,enty)
+  )
+;
 
 $ifthen %optimization% == "nash"
 q80_budg_intertemp(regi)..

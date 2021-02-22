@@ -65,7 +65,7 @@ $setGlobal initialCap  on             !! def = on
 ***---------------------    11_aerosols    --------------------------------------
 $setGlobal aerosols  exoGAINS         !! def = exoGAINS
 ***---------------------    15_climate    ---------------------------------------
-$setGlobal climate  off               !! def = off
+$setGlobal climate  box               !! def = off
 ***---------------------    16_downscaleTemperature    --------------------------
 $setGlobal downscaleTemperature  off  !! def = off
 ***---------------------    20_growth    ----------------------------------------
@@ -146,6 +146,7 @@ cm_damage                               "cm_damage factor for forcing overshoot"
 cm_damages_BurkeLike_specification      "empirical specification for Burke-like damage functions"
 cm_damages_BurkeLike_persistenceTime    "persistence time in years for Burke-like damage functions"
 cm_damages_SccHorizon                   "Horizon for SCC calculation. Damages cm_damagesSccHorizon years into the future are internalized."
+cm_gdximport_target   "whether or not the starting value for iteratively adjusted budgets, tax scenarios, or forcing targets (emiscen 5,6,8,9) should be read in from the input.gdx"
 cm_iterative_target_adj                 "whether or not a tax or a budget target should be iteratively adjusted depending on actual emission or forcing level"
 cm_trdcst                               "parameter to scale trade export cost for gas"
 cm_trdadj                               "parameter scale the adjustment cost parameter for increasing gas trade export"
@@ -168,6 +169,7 @@ cm_damage                             = 0.005;        !! def = 0.005
 cm_damages_BurkeLike_specification    = 0;            !! def = 0
 cm_damages_BurkeLike_persistenceTime  = 30;           !! def = 30
 cm_damages_SccHorizon                 = 100;          !! def = 100
+cm_gdximport_target                   = 0;            !! def = 0
 cm_iterative_target_adj               = 0;            !! def = 0
 cm_trdadj                             = 2;            !! def = 2.0
 cm_trdcst                             = 1.5;          !! def = 1.5
@@ -204,6 +206,8 @@ $setGlobal cm_magicc_calibrateTemperature2000     uncalibrated            !! def
 $setGlobal cm_magicc_config                       OLDDEFAULT              !! def = OLDDEFAULT
 $setGlobal cm_magicc_temperatureImpulseResponse   off                     !! def = off
 $setGlobal cm_damage_DiceLike_specification       HowardNonCatastrophic   !! def = HowardNonCatastrophic
+***
+$setGlobal cm_APscen  SSP2          !! def = SSP2
 ***-----------------------------------------------------------------------------
 ***                    
 ***-----------------------------------------------------------------------------
@@ -342,6 +346,9 @@ vm_invRD.fx(t,regi,in) = 0;
 ***         PRESOLVE
 ***--------------------------------------------------------------------------
 $batinclude "./standalone/macro/include_datainput.gms" presolve
+
+pm_emissions0(ttot,regi,enty)$( (ttot.val ge 2005) and  (pm_SolNonInfes(regi) eq 1)) = vm_emiAll.l(ttot,regi,enty);
+pm_emissionsForeign(ttot,regi,enty)$((ttot.val ge 2005) and (pm_SolNonInfes(regi) eq 1)) = sum(regi2$((NOT sameas(regi,regi2))), pm_emissions0(ttot,regi2,enty));
 
 *cb 20140305 Fixing information (.L, .FX and .M) from run to be fixed to is read in from input_ref.gdx (t < cm_startyear)
 *cb 20140305 happens via submit.R script (files levs.gms, fixings.gms, margs.gms)

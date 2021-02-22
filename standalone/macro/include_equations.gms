@@ -11,6 +11,7 @@ $setglobal phase %1
 *######################## R SECTION START (MODULES) ############################
 $include "./modules/01_macro/module.gms"
 $include "./modules/02_welfare/module.gms"
+$include "./modules/15_climate/module.gms"
 $include "./modules/20_growth/module.gms"
 $include "./modules/23_capitalMarket/module.gms"
 $include "./modules/29_CES_parameters/module.gms"

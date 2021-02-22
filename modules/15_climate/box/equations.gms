@@ -104,7 +104,7 @@ q15_forcoc(ta10)..
 q15_forctotal(ta10)..
     v15_forcComp(ta10,'TTL')
 	=e=
-	hv15_forcComp(ta10,'CO2') 
+	v15_forcComp(ta10,'CO2') 
 	+ v15_forcComp(ta10,'SO2') 
 	+ v15_forcComp(ta10,'CH4') 
 	+ v15_forcComp(ta10,'N2O') 

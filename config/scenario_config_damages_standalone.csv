@@ -1,6 +1,7 @@
-title;start;model;damages;internalizeDamages;cm_magicc_temperatureImpulseResponse;downscaleTemperature;cm_rcp_scen;path_gdx;path_gdx_ref;path_gdx_bau
-macro;0;standalone/macro/main.gms;off;off;off;off;none;./config/input.gdx;;
-macro_dice;0;standalone/macro/main.gms;DiceLike;off;off;off;none;./config/input.gdx;;
-macro_burke;0;standalone/macro/main.gms;BurkeLike;off;off;CMIP5;rcp26;./config/input.gdx;;
-macro_diceInt;0;standalone/macro/main.gms;DiceLike;DiceLikeItr;on;off;none;./config/input.gdx;;
-macro_burkeInt;0;standalone/macro/main.gms;BurkeLike;BurkeLikeItr;on;CMIP5;rcp26;./config/input.gdx;;
+title;start;model;climate;damages;internalizeDamages;cm_magicc_temperatureImpulseResponse;downscaleTemperature;cm_rcp_scen;path_gdx;path_gdx_ref;path_gdx_bau
+macro;0;standalone/macro/main.gms;off;off;off;off;off;none;./config/input.gdx;;
+macro_box;1;standalone/macro/main.gms;box;off;off;off;off;none;./config/input.gdx;;
+macro_dice;0;standalone/macro/main.gms;off;DiceLike;off;off;off;none;./config/input.gdx;;
+macro_burke;0;standalone/macro/main.gms;off;BurkeLike;off;off;CMIP5;rcp26;./config/input.gdx;;
+macro_diceInt;0;standalone/macro/main.gms;off;DiceLike;DiceLikeItr;on;off;none;./config/input.gdx;;
+macro_burkeInt;0;standalone/macro/main.gms;off;BurkeLike;BurkeLikeItr;on;CMIP5;rcp26;./config/input.gdx;;
