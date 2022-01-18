@@ -15,6 +15,8 @@ suppressPackageStartupMessages(library(lucode2))
 suppressPackageStartupMessages(library(gms))
 suppressPackageStartupMessages(library(magclass))
 
+madrat::setConfig(hash="md5")
+
 getReportData <- function(path_to_report,inputpath_mag="magpie",inputpath_acc="costs") {
   # Needs the R package magclass
 
