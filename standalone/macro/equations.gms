@@ -11,43 +11,43 @@ q_costEnergySys(ttot,regi)$( ttot.val ge cm_startyear ) ..
 $ifthen.emulator %emulator_energySys% == "on_1" 
     sum(ppfEn, jk_emu_yIntercept(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) 
              + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)**2 / 2.0)
-$elseif.emulator %emulator_energySys% == "on_1b" 
-    sum(ppfEn, (jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-                * vm_cesIO(ttot,regi,ppfEn))
-* $ifthen.emulator %emulator_energySys% == "on_1" 
-*     sum(ppfEn, (jk_emu_slope(ttot,regi,ppfEn)*vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
-$elseif.emulator %emulator_energySys% == "on_2" 
-    sum(ppfEn, 
-    (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) 
-    * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) gt jk_emu_x(ttot,regi,ppfEn))
-    + 
-    (( -1 * jk_emu_yIntercept(ttot,regi,ppfEn)/jk_emu_x(ttot,regi,ppfEn)**2 * vm_cesIO(ttot,regi,ppfEn)**2 
-      + (jk_emu_slope(ttot,regi,ppfEn) + 2 * jk_emu_yIntercept(ttot,regi,ppfEn) / jk_emu_x(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn)) 
-    * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) le jk_emu_x(ttot,regi,ppfEn))
-    ) 
-$elseif.emulator %emulator_energySys% == "on_3"
-    sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)
-             + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)**2 / 2.0)
-             $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
-             +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-             $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))
-$elseif.emulator %emulator_energySys% == "on_3b"
-    sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-                * vm_cesIO(ttot,regi,ppfEn)
-             $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
-             +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-             $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))  
-$elseif.emulator %emulator_energySys% == "on_4"
-    sum(ppfEn, 
-     (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
-      $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn) AND jk_pm_priceEnergy(ttot,regi,ppfEn) lt jk_emu_y2(ttot,regi,ppfEn))
-     + 
-     (jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-      $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn))
-     + 
-     (jk_emu_y2(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
-      $(jk_pm_priceEnergy(ttot,regi,ppfEn) ge jk_emu_y2(ttot,regi,ppfEn))
-    ) 
+* $elseif.emulator %emulator_energySys% == "on_1b" 
+*     sum(ppfEn, (jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*                 * vm_cesIO(ttot,regi,ppfEn))
+* * $ifthen.emulator %emulator_energySys% == "on_1" 
+* *     sum(ppfEn, (jk_emu_slope(ttot,regi,ppfEn)*vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
+* $elseif.emulator %emulator_energySys% == "on_2" 
+*     sum(ppfEn, 
+*     (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) 
+*     * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) gt jk_emu_x(ttot,regi,ppfEn))
+*     + 
+*     (( -1 * jk_emu_yIntercept(ttot,regi,ppfEn)/jk_emu_x(ttot,regi,ppfEn)**2 * vm_cesIO(ttot,regi,ppfEn)**2 
+*       + (jk_emu_slope(ttot,regi,ppfEn) + 2 * jk_emu_yIntercept(ttot,regi,ppfEn) / jk_emu_x(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn)) 
+*     * vm_cesIO(ttot,regi,ppfEn))$(jk_pm_cesIO(ttot,regi,ppfEn) le jk_emu_x(ttot,regi,ppfEn))
+*     ) 
+* $elseif.emulator %emulator_energySys% == "on_3"
+*     sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)
+*              + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn)**2 / 2.0)
+*              $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
+*              +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*              $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))
+* $elseif.emulator %emulator_energySys% == "on_3b"
+*     sum(ppfEn,(jk_emu_yIntercept(ttot,regi,ppfEn) + jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*                 * vm_cesIO(ttot,regi,ppfEn)
+*              $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn))
+*              +(jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*              $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn)))  
+* $elseif.emulator %emulator_energySys% == "on_4"
+*     sum(ppfEn, 
+*      (( jk_emu_slope(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn) + jk_emu_yIntercept(ttot,regi,ppfEn)) * vm_cesIO(ttot,regi,ppfEn))
+*       $(jk_pm_priceEnergy(ttot,regi,ppfEn) gt jk_emu_y(ttot,regi,ppfEn) AND jk_pm_priceEnergy(ttot,regi,ppfEn) lt jk_emu_y2(ttot,regi,ppfEn))
+*      + 
+*      (jk_emu_y(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*       $(jk_pm_priceEnergy(ttot,regi,ppfEn) le jk_emu_y(ttot,regi,ppfEn))
+*      + 
+*      (jk_emu_y2(ttot,regi,ppfEn) * vm_cesIO(ttot,regi,ppfEn))
+*       $(jk_pm_priceEnergy(ttot,regi,ppfEn) ge jk_emu_y2(ttot,regi,ppfEn))
+*     ) 
 $endif.emulator
 ;
 
