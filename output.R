@@ -142,13 +142,13 @@ if (comp==TRUE) {
     if (!exists("remind_dir")) {
       temp <- choose_folder("./output","Please choose the runs to be used for output generation")
       outputdirs <- temp
-      for (i in 1:length(temp)) outputdirs[i] <- path("output",temp[i])
+      for (i in 1:length(temp)) outputdirs[i] <- file.path("output",temp[i])
     } else {
       temp <- choose_folder(remind_dir,"Please choose the runs to be used for output generation")
       outputdirs <- temp
       for (i in 1:length(temp)) {
-        last_iteration <- max(as.numeric(sub("magpie_","",grep("magpie_",list.dirs(path(remind_dir,temp[i],"data/results")),value=T))))
-        outputdirs[i] <- path(remind_dir,temp[i],"data/results/",paste("magpie_",last_iteration,sep=""))
+        last_iteration <- max(as.numeric(sub("magpie_","",grep("magpie_",list.dirs(file.path(remind_dir,temp[i],"data/results")),value=T))))
+        outputdirs[i] <- file.path(remind_dir,temp[i],"data/results/",paste("magpie_",last_iteration,sep=""))
       }
     }
   } else outputdirs <- outputdir
@@ -177,13 +177,13 @@ if (comp==TRUE) {
     if (!exists("remind_dir")) {
       temp <- choose_folder("./output","Please choose the run(s) to be used for output generation")
       outputdirs <- temp
-      for (i in 1:length(temp)) outputdirs[i] <- path("output",temp[i])
+      for (i in 1:length(temp)) outputdirs[i] <- file.path("output",temp[i])
     } else {
       temp <- choose_folder(remind_dir,"Please choose the runs to be used for output generation")
       outputdirs <- temp
       for (i in 1:length(temp)) {
-        last_iteration <- max(as.numeric(sub("magpie_","",grep("magpie_",list.dirs(path(remind_dir,temp[i],"data/results")),value=T))))
-        outputdirs[i] <- path(remind_dir,temp[i],"data/results/",paste("magpie_",last_iteration,sep=""))
+        last_iteration <- max(as.numeric(sub("magpie_","",grep("magpie_",list.dirs(file.path(remind_dir,temp[i],"data/results")),value=T))))
+        outputdirs[i] <- file.path(remind_dir,temp[i],"data/results/",paste("magpie_",last_iteration,sep=""))
       }
     } 
   } else outputdirs <- outputdir
@@ -217,16 +217,16 @@ if (comp==TRUE) {
     # Get values of config if output.R is called standalone
     if(!exists("source_include")) {
       magpie_folder <- getwd()
-	  print(path(outputdir,"config.Rdata"))
-      if(file.exists(path(outputdir,"config.Rdata"))) {
-        load(path(outputdir,"config.Rdata"))
+	  print(file.path(outputdir,"config.Rdata"))
+      if(file.exists(file.path(outputdir,"config.Rdata"))) {
+        load(file.path(outputdir,"config.Rdata"))
         title    <- cfg$title
         gms      <- cfg$gms
         input    <- cfg$input
         revision <- cfg$revision
       } else {
         config <- grep("\\.cfg$",list.files(outputdir), value=TRUE)
-        l<-readLines(path(outputdir,config))
+        l<-readLines(file.path(outputdir,config))
         title <- strsplit(grep("(cfg\\$|)title +<-",l,value=TRUE),"\"")[[1]][2]
         gms <- list()
         gms$scenarios <- strsplit(grep("(cfg\\$|)gms\\$scenarios +<-",l,value=TRUE),"\"")[[1]][2]

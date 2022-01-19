@@ -15,11 +15,11 @@
 *** Generate MAGICC scenario file
 $include "./core/magicc.gms";
 *** execute MAGICC (this is cheap enough, ~2s)
-Execute "Rscript run_magicc.R";
+Execute "printf 'Executing Rscript run_magicc.R\n'; Rscript run_magicc.R";
 *** read in results
-Execute "Rscript read_DAT_TOTAL_ANTHRO_RF.R";
+Execute "printf 'Executing Rscript read_DAT_TOTAL_ANTHRO_RF.R\n'; Rscript read_DAT_TOTAL_ANTHRO_RF.R";
 Execute_Loadpoint 'p15_forc_magicc'  p15_forc_magicc;
-Execute "Rscript read_DAT_SURFACE_TEMP.R";
+Execute "printf 'Executing Rscript read_DAT_SURFACE_TEMP.R\n'; Rscript read_DAT_SURFACE_TEMP.R";
 Execute_Loadpoint 'p15_magicc_temp' pm_globalMeanTemperature = pm_globalMeanTemperature;
 *** MAGICC only reports unitl 2300:
 pm_globalMeanTemperature(tall)$(tall.val gt 2300) = 0;

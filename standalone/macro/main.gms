@@ -284,8 +284,8 @@ pm_shPerm(t,regi) = 1;
 pm_emicapglob(t) = 1000;
 
 *** Load in Trade variabes, and fix trade in PE
-execute_loadpoint 'input' pm_costTradePe = vm_tradecost.l;
-execute_loadpoint 'input' vm_Mport, vm_Xport;
+execute_loadpoint 'input' vm_Mport, vm_Xport, vm_tradecost;
+pm_costTradePe(ttot, all_regi)  = vm_tradecost.l(ttot, all_regi) ;
 *vm_Xport.fx(tall,regi,tradePe) = vm_Xport.l(tall,regi,tradePe);
 *vm_Mport.fx(tall,regi,tradePe) = vm_Mport.l(tall,regi,tradePe);
 display vm_Mport.l;
@@ -434,6 +434,10 @@ else
                           "| sed 's/\(.*\)/non_optimal.gdx non_optimal_\1.gdx/'"
                           "| xargs -n 2 cp"
   );
+);
+
+if(ord(iteration) = cm_iteration_max,
+  Execute "printf '\nWarning: Maximum number of iterations reached! Exiting LOOP.\n'";
 );
 
 );

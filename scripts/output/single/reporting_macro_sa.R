@@ -59,10 +59,10 @@ if (0 == nchar(Sys.getenv('MAGICC_BINARY'))) {
              sep = ""))
 }
 
-
 # generate macro_sa reporting
-# of <- c(paste0("/p/tmp/jokoch/remind/",outputdir,"/"))
-# 
-# rmarkdown::render("scripts/output/single/notebook_templates/compare_macro.Rmd",
-#                   params = list(output_folders = of),
-#                   output_file = paste0("../../../../",outputdir,"/macro_report.html"))
+ofolder <- rprojroot::find_root_file(outputdir, criterion = rprojroot::has_file("start_bundle_climate.R"))
+ofile <- rprojroot::find_root_file(outputdir, "macro_report.html", criterion = rprojroot::has_file("start_bundle_climate.R"))
+
+rmarkdown::render("scripts/output/single/notebook_templates/compare_macro.Rmd",
+                  params = list(output_folders = ofolder),
+                  output_file = ofile)

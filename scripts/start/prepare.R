@@ -543,12 +543,12 @@ if(cfg$model == "standalone/macro/main.gms"){
 
 
 # Save configuration
-save(cfg, file = path(cfg$results_folder, "config.Rdata"))
+save(cfg, file = file.path(cfg$results_folder, "config.Rdata"))
 
 
 # Merge GAMS files
 cat("\n################\nCreating full.gms ...")
-gms::singleGAMSfile(mainfile=cfg$model,output = path(cfg$results_folder, "full.gms"))
+gms::singleGAMSfile(mainfile = cfg$model, output = file.path(cfg$results_folder, "full.gms"))
 cat(" done.\n################\n\n\n")
 
 # Collect run statistics (will be saved to central database in submit.R)

@@ -9,7 +9,7 @@
 library(gdxrrw)
 
 # Load GAMS path
-igdx(system("dirname $( which gams )", intern = TRUE))
+igdx(system("dirname $( which gams )", intern = TRUE), silent = TRUE)
 
 file <- "./magicc/DAT_TOTAL_ANTHRO_RF.OUT"
 

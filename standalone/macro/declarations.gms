@@ -448,6 +448,7 @@ pm_costTradePe(ttot,all_regi)               "Trade costs for trading primary ene
 positive VARIABLES
 vm_Xport(tall,all_regi,trade)            "Export of traded commodity."
 vm_Mport(tall,all_regi,trade)            "Import of traded commodity."
+vm_tradecost(ttot, all_regi)  
 ;
 
 
