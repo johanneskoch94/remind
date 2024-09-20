@@ -38,6 +38,20 @@ pop_b1
 pop_b2
 /
 
+all_labScen     "all possible labour scenarios"
+/
+lab_SDP         "SDP labour scenario"
+lab_SDP_EI
+lab_SDP_MC
+lab_SDP_RC
+lab_SSP1        "SSP1 labour scenario"
+lab_SSP2        "SSP2 labour scenario"
+lab_SSP2EU
+lab_SSP3        "SSP3 labour scenario"
+lab_SSP4        "SSP4 labour scenario"
+lab_SSP5        "SSP5 labour scenario"
+/
+
 all_GDPscen    "all possible GDP scenarios"
 /
 gdp_SDP         "SDP fastGROWTH medCONV"
