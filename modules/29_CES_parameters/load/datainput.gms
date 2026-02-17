@@ -9,6 +9,8 @@
 *** Load CES parameters based on current model configuration
 $include "./modules/29_CES_parameters/load/input/%cm_CES_configuration%.inc"
 
+pm_cesdata(tall,all_regi,"lab","eff") = pm_cesdata(tall,all_regi,"lab","eff") * %cm_CES_lab_eff_factor%;
+
 option pm_cesdata:8:3:1;
 display "loaded pm_cesdata", pm_cesdata;
 

@@ -2882,4 +2882,38 @@ alias(ccs2te,ccs2te2);
 alias(pe2se,pe2se2);
 alias(se2fe,se2fe2);
 
+
+***-----------------------------------------------------------------------------
+***-----------------------------------------------------------------------------
+***                             MSGM sets and mappings
+***-----------------------------------------------------------------------------
+***-----------------------------------------------------------------------------
+Sets
+msgm                  "Final energy resolution of multi-sector growth model (MSGM)"   /"fetot", "feel", "fenoel"/
+esm2msgm(entyFe,msgm) "Interface between ESM and MSGM" /  
+  fegas.fetot
+  fehos.fetot
+  fesos.fetot
+  feels.fetot
+  fehes.fetot
+  feh2s.fetot
+  fepet.fetot
+  fedie.fetot
+  feh2t.fetot
+  feelt.fetot
+  fegat.fetot
+  fegas.fenoel
+  fehos.fenoel
+  fesos.fenoel
+  fehes.fenoel
+  feh2s.fenoel
+  fepet.fenoel
+  fedie.fenoel
+  feh2t.fenoel
+  fegat.fenoel
+  feels.feel
+  feelt.feel
+/
+;
+
 *** EOF ./core/sets.gms

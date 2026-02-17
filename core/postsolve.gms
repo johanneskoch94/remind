@@ -221,4 +221,43 @@ o_vm_fuExtr_pebiolc(iteration,ttot,regi) = vm_fuExtr.l(ttot,regi,"pebiolc","1");
 o_PEDem_Bio_ECrops(iteration,ttot,regi) = vm_fuExtr.l(ttot,regi,"pebiolc","1") + (1 - pm_costsPEtradeMp(regi,"pebiolc")) * vm_Mport.l(ttot,regi,"pebiolc") - vm_Xport.l(ttot,regi,"pebiolc");
 o_vm_emiMacSector_co2luc(iteration,ttot,regi) = vm_emiMacSector.l(ttot,regi,"co2luc");
 
+
+
+*** Compute MSGM interface parameters
+** First compute helper FE demand and prices parameters
+o_demFE(t,regi,entyFe) = sum((entySE,sector,emiMkt), vm_demFEsector.l(t,regi,entySE,entyFE,sector,emiMkt));
+
+** Same as p_FEPrice_by_FE but more elegant (marginal prices of aggregates equal to minimal non-zero marginal price of full equation marginal)
+*** Have to condition the lhs as well, otherwise smin will return INF in case the set condition excludes all prices
+o_FEPrice(t,regi,entyFe)$(
+    smax((entySe,sector,emiMkt), p_FEPrice_by_SE_Sector_EmiMkt(t,regi,entySe,entyFe,sector,emiMkt)) > 0
+  ) 
+  = 
+    smin((entySe,sector,emiMkt)$(p_FEPrice_by_SE_Sector_EmiMkt(t,regi,entySe,entyFe,sector,emiMkt) > 0),
+         p_FEPrice_by_SE_Sector_EmiMkt(t,regi,entySe,entyFe,sector,emiMkt)
+);
+
+** Then compute the same with the correct aggregation
+o_demFE_MSGM(t,regi,msgm) = sum((esm2msgm(entyFe,msgm)), o_demFE(t,regi,entyFe));
+** Take the weighted average of the FE prices for the MSGM prices
+o_FEPrice_MSGM(t,regi,msgm) = sum((esm2msgm(entyFe,msgm)), o_FEPrice(t,regi,entyFe) *  o_demFE(t,regi,entyFe)) 
+                              / o_demFE_MSGM(t,regi,msgm);
+
+** For the emissions, take emiTe as proxy for Emi|CO2|+|Energy (not quite), and take the diff to vm_emiAll
+** to get the non-energy system CO2 emissions.
+o_emiCO2_MSGM(t,regi,"fetot") = vm_emiTe.l(t,regi,"co2");
+o_emiCO2_MSGM(t,regi,"feel") = sum(pe2se(entyPe,"seel",te), 
+                                   pm_emifac(t,regi,entyPe,"seel",te,"co2") * vm_demPE.l(t,regi,entyPe,"seel",te));
+o_emiCO2_MSGM(t,regi,"fenoel") = o_emiCO2_MSGM(t,regi,"fetot") - o_emiCO2_MSGM(t,regi,"feel");
+o_emiCO2_nES_MSGM(t,regi) = vm_emiAll.l(t,regi,"co2") - o_emiCO2_MSGM(t,regi,"fetot");
+
+** Compute energy supply investments
+o_inv_energy_supply(t,regi) = 
+  sum(en2en(enty,enty2,te)$(not tePrc(te)), vm_costInvTeDir.l(t,regi,te) + vm_costInvTeAdj.l(t,regi,te))
+  + sum(teNoTransform, vm_costInvTeDir.l(t,regi,teNoTransform) + vm_costInvTeAdj.l(t,regi,teNoTransform));
+
+o_inv_energy_supply_fossil(t,regi) = 
+  sum(en2en(enty,enty2,te)$(not tePrc(te) AND peFos(enty)), vm_costInvTeDir.l(t,regi,te) + vm_costInvTeAdj.l(t,regi,te))
+  + sum(teNoTransform, vm_costInvTeDir.l(t,regi,teNoTransform) + vm_costInvTeAdj.l(t,regi,teNoTransform));
+
 *** EOF ./core/postsolve.gms
